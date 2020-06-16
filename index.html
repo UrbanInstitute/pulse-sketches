@@ -1,0 +1,150 @@
+<body>
+<head>
+<style>
+    body{
+        font-family: Lato;
+    }
+.city{
+    display: inline-block;
+    width: 380px;
+    padding: 50px;
+}
+.race{
+    display: inline-block;
+    margin-right: 10px;
+}
+.cityName{
+    font-size: 18px;
+    font-weight: bold;
+}
+.raceName{
+    font-size: 16px;
+    text-transform: uppercase;
+    font-style: italic;
+    margin-top: 15px;
+}
+.dot{
+    fill: #1696d2;
+}
+.moe{
+    fill: #d2d2d2;
+}
+</style>
+</head>
+
+<div id = "container"></div>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
+<script>
+var h = 150,
+    w = 180;
+d3.csv("data.csv")
+.then(function(data){
+    var nest = d3.nest()
+        .key(function(d){ return d.geo_name })
+        .entries(data)
+    var city = d3.select("#container")
+        .selectAll(".city")
+        .data(nest)
+        .enter().append("div")
+        .attr("class", "city")
+    
+    city.append("div")
+        .attr("class", "cityName")
+        .text(function(d){ return d.key })
+
+    // console.log(nest)
+
+    var race = city
+    .selectAll(".race")
+    .data(function(n){
+        return d3.nest()
+            .key(function(o){ return o.race_var })
+            .entries(n.values)
+
+    })
+    .enter().append("div")
+    .attr("class", "race")
+
+    race.append("div")
+        .attr("class", "raceName")
+        .text(function(d){ return d.key })
+
+    var svg = race.append("svg").attr("width",w).attr("height",h)
+
+   var margin = {
+    top: 10,
+    right: 10,
+    bottom: 25,
+    left: 25
+    },
+    width = w - margin.left - margin.right,
+    height = h - margin.top - margin.bottom,
+    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+    var x = d3.scaleBand()
+        .rangeRound([0, width])
+        .padding(0)
+        .domain(["wk1-2","wk2-3","wk3-4"])
+
+    var y = d3.scaleLinear()
+        .rangeRound([height, 0])
+        .domain([0,1])
+
+        g.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x))
+
+    g.append("g")
+    .call(d3.axisLeft(y))
+
+    g.selectAll(".moe")
+        .data(function(d){
+             return d.values
+        })
+        .enter().append("rect")
+        .attr("class", "moe")
+        .attr("x", function(d){
+            return x(d.week)
+        })
+        .attr("y", function(d){
+            return y(+d.moe_95_ub)
+        })
+        .attr("width", function(d){
+            return x.bandwidth()
+        })
+        .attr("height", function(d){
+            return y(+d.moe_95_lb) - y(+d.moe_95_ub)
+        })
+
+
+
+    g.selectAll(".dot")
+        .data(function(d){
+             return d.values
+        })
+        .enter().append("circle")
+        .attr("class", "dot")
+        .attr("cx", function(d){
+            return x(d.week) + x.bandwidth()*.5
+        })
+        .attr("cy", function(d){
+            return y(+d.mean)
+        })
+        .attr("r", 4)
+
+
+
+
+
+
+
+
+
+})
+
+
+
+
+</script>
+</body>
