@@ -35,15 +35,20 @@
     fill: #1696d2;
 }
 .tdot{
-    fill: #fdbf11;
+    fill: none;
+    stroke: #353535;
+    stroke-dasharray: 2;
 }
 .moe{
-    fill: #1696d2;
-    opacity: .2;
+    /*fill: #1696d2;*/
+    opacity: .6;
+    stroke: #e3e3e3;
 }
 .tmoe{
-    fill: #fdbf11   ;
+    fill: none;   ;
     opacity: .2;
+    stroke: #353535;
+    stroke-dasharray: 5;
 }   
 </style>
 </head>
@@ -55,6 +60,7 @@ var h = 350,
     w = 380;
 d3.csv("data.csv")
 .then(function(data){
+    data = data.filter(function(o){ return o.metric == "uninsured"})
     var nest = d3.nest()
         .key(function(d){ return d.metric })
         .entries(data)
@@ -132,6 +138,57 @@ d3.csv("data.csv")
 
     g.append("g")
     .call(d3.axisLeft(y))
+var defs = svg.append("defs")
+var gradients = []
+for(var i = 0; i < x.domain().length; i++){
+    var gradient = defs
+  .append("linearGradient")
+    .attr("id", function(d){
+       return d.key + "_" + d.values[0].geography.replace(/\W/g,'_')  + "_" + d.values[0].metric + "_gradient" + i
+    })
+    .attr("x1", "0%")
+    .attr("y1", "0%")
+    .attr("x2", "0%")
+    .attr("y2", "100%")
+    .attr("spreadMethod", "pad");
+
+
+
+gradient.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", function(dv){
+        var d = dv.values[i]
+        return (+d.moe_95_ub > +d.total[i].moe_95_ub) ? "#1696d2" : "#fdbf11"
+    })
+    .attr("stop-opacity", 1);
+
+// gradient.append("stop")
+//     .attr("offset", function(dv){
+//         var d = dv.values[i]
+//         return ((+d.moe_95_ub - +d.total[i].moe_95_ub) / (+d.moe_95_ub - +d.moe_95_lb)*100) + "%"
+        
+//     })
+//     .attr("stop-color", "#696969")
+//     .attr("stop-opacity", 1);
+
+
+gradient.append("stop")
+    .attr("offset", function(dv){
+        var d = dv.values[i]
+        return ((+d.moe_95_ub - +d.total[i].mean) / (+d.moe_95_ub - +d.moe_95_lb)*100) + "%"
+        
+    })
+    .attr("stop-color", "#e3e3e3")
+    .attr("stop-opacity", 1);
+
+
+gradient.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", "#fdbf11")
+    .attr("stop-opacity", 1);
+}
+
+
 
     g.selectAll(".moe")
         .data(function(d){
@@ -152,6 +209,12 @@ d3.csv("data.csv")
         .attr("height", function(d){
             return y(+d.moe_95_lb) - y(+d.moe_95_ub)
         })
+        .style("fill", function(d, i){
+            // console.log(d)
+            return "url(#" + d.race_var + "_" + d.geography.replace(/\W/g,'_')  + "_" +  d.metric + "_gradient" + i + ")"
+            // return "url(#gradient" + i + ")"
+        });
+
 
     g.selectAll(".dot")
         .data(function(d){
