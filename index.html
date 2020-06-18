@@ -13,6 +13,9 @@
     display: inline-block;
     margin-right: 10px;
 }
+.race.total{
+    display: none !important;
+}
 .cityName{
     font-size: 18px;
     font-weight: bold;
@@ -22,6 +25,18 @@
     text-transform: uppercase;
     font-style: italic;
     margin-top: 15px;
+}
+.metric{
+    display: block;
+}
+.metric.hide, .city.hide{
+    display: none;
+}
+.metric.noHide{
+    display: block !important;
+}
+.city.noHide{
+    display: inline-block !important;
 }
 .metricName{
     width: 100%;
@@ -41,26 +56,175 @@
 }
 .moe{
     /*fill: #1696d2;*/
-    opacity: .6;
     stroke: #e3e3e3;
 }
 .tmoe{
     fill: none;   ;
-    opacity: .2;
     stroke: #353535;
     stroke-dasharray: 5;
-}   
+}
+.moe.hide, .tmoe.hide{
+    display: none;
+}
+.tdot.hide{
+    fill: #353535;
+}
+/*.insig{
+    opacity: .2;
+}*/
+.btn{
+    display: inline-block;
+    padding: 10px;
+    background: #d2d2d2;
+    color: #000;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.btn.active{
+    background: #1696d2;
+    color: #fff;
+}
 </style>
 </head>
+
+
+<select id = "metrics">
+    <option value ="all" >All indicators</option>
+    <option value ="uninsured" selected="selected">uninsured</option>
+    <option value ="insured_public">insured_public</option>
+    <option value ="inc_loss">inc_loss</option>
+    <option value ="expect_inc_loss">expect_inc_loss</option>
+    <option value ="payment_not_conf">payment_not_conf</option>
+    <option value ="food_insufficient">food_insufficient</option>
+    <option value ="classes_cancelled">classes_cancelled</option>
+    <option value ="depression_anxiety_signs">depression_anxiety_signs</option>
+</select>
+
+<select id = "geographies">
+    <option value ="all" >All geographies</option>
+    <option value ="US" selected="selected">US</option>
+    <option value ="AK">AK</option>
+    <option value ="AL">AL</option>
+    <option value ="AR">AR</option>
+    <option value ="AZ">AZ</option>
+    <option value ="CA">CA</option>
+    <option value ="CO">CO</option>
+    <option value ="CT">CT</option>
+    <option value ="DC">DC</option>
+    <option value ="DE">DE</option>
+    <option value ="FL">FL</option>
+    <option value ="GA">GA</option>
+    <option value ="HI">HI</option>
+    <option value ="IA">IA</option>
+    <option value ="ID">ID</option>
+    <option value ="IL">IL</option>
+    <option value ="IN">IN</option>
+    <option value ="KS">KS</option>
+    <option value ="KY">KY</option>
+    <option value ="LA">LA</option>
+    <option value ="MA">MA</option>
+    <option value ="MD">MD</option>
+    <option value ="ME">ME</option>
+    <option value ="MI">MI</option>
+    <option value ="MN">MN</option>
+    <option value ="MO">MO</option>
+    <option value ="MS">MS</option>
+    <option value ="MT">MT</option>
+    <option value ="NC">NC</option>
+    <option value ="ND">ND</option>
+    <option value ="NE">NE</option>
+    <option value ="NH">NH</option>
+    <option value ="NJ">NJ</option>
+    <option value ="NM">NM</option>
+    <option value ="NV">NV</option>
+    <option value ="NY">NY</option>
+    <option value ="OH">OH</option>
+    <option value ="OK">OK</option>
+    <option value ="OR">OR</option>
+    <option value ="PA">PA</option>
+    <option value ="RI">RI</option>
+    <option value ="SC">SC</option>
+    <option value ="SD">SD</option>
+    <option value ="TN">TN</option>
+    <option value ="TX">TX</option>
+    <option value ="UT">UT</option>
+    <option value ="VA">VA</option>
+    <option value ="VT">VT</option>
+    <option value ="WA">WA</option>
+    <option value ="WI">WI</option>
+    <option value ="WV">WV</option>
+    <option value ="WY">WY</option>
+    <option value ="Atlanta-Sandy Springs-Roswell, GA">Atlanta-Sandy Springs-Roswell, GA</option>
+    <option value ="Boston-Cambridge-Newton, MA-NH">Boston-Cambridge-Newton, MA-NH</option>
+    <option value ="Chicago-Naperville-Elgin, IL-IN-WI">Chicago-Naperville-Elgin, IL-IN-WI</option>
+    <option value ="Dallas-Fort Worth-Arlington, TX">Dallas-Fort Worth-Arlington, TX</option>
+    <option value ="Detroit-Warren-Dearborn, MI">Detroit-Warren-Dearborn, MI</option>
+    <option value ="Houston-The Woodlands-Sugar Land, TX">Houston-The Woodlands-Sugar Land, TX</option>
+    <option value ="Los Angeles-Long Beach-Anaheim, CA">Los Angeles-Long Beach-Anaheim, CA</option>
+    <option value ="Miami-Fort Lauderdale-West Palm Beach, FL">Miami-Fort Lauderdale-West Palm Beach, FL</option>
+    <option value ="New York-Newark-Jersey City, NY-NJ-PA">New York-Newark-Jersey City, NY-NJ-PA</option>
+    <option value ="Philadelphia-Camden-Wilmington, PA-NJ-DE-MD">Philadelphia-Camden-Wilmington, PA-NJ-DE-MD</option>
+    <option value ="Phoenix-Mesa-Scottsdale, AZ">Phoenix-Mesa-Scottsdale, AZ</option>
+    <option value ="Riverside-San Bernardino-Ontario, CA">Riverside-San Bernardino-Ontario, CA</option>
+    <option value ="San Francisco-Oakland-Hayward, CA">San Francisco-Oakland-Hayward, CA</option>
+    <option value ="Seattle-Tacoma-Bellevue, WA">Seattle-Tacoma-Bellevue, WA</option>
+Washington-Arlington-Alexandria, DC-VA-MD-WV
+</select>
+
+<div class = "btn moe">Show Margins of Error</div>
+<div class = "btn sig">Show significance</div>
 
 <div id = "container"></div>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
 <script>
+
+d3.select(".btn.moe").on("click", function(){
+    if(d3.select(this).classed("active")){
+        d3.selectAll(".chartel").classed("hide", true)
+        d3.select(this).classed("active", false)
+    }else{
+        d3.selectAll(".chartel").classed("hide", false)
+        d3.select(this).classed("active", true)
+    }
+})
+d3.select(".btn.sig").on("click", function(){
+    if(d3.select(this).classed("active")){
+        d3.selectAll(".insig").style("opacity", 1)
+        d3.select(this).classed("active", false)
+    }else{
+        d3.selectAll(".insig").style("opacity", .2)
+        d3.select(this).classed("active", true)
+    }
+})
+
+
+
+d3.select("#metrics").on("change", function(){
+    var m = this.value
+    if(m == "all"){
+        d3.selectAll(".metric").classed("hide", false)
+    }else{
+        d3.selectAll(".metric").classed("hide", true)
+        d3.selectAll(".metric." + m).classed("hide", false)
+    }
+})
+
+d3.select("#geographies").on("change", function(){
+    var m = this.value.replace(/\W/g,'_')
+    if(m == "all"){
+        d3.selectAll(".city").classed("hide", false)
+    }else{
+        d3.selectAll(".city").classed("hide", true)
+        d3.selectAll(".city." + m).classed("hide", false)
+    }
+})
+
+
+
 var h = 350,
     w = 380;
 d3.csv("data.csv")
 .then(function(data){
-    data = data.filter(function(o){ return o.metric == "uninsured"})
     var nest = d3.nest()
         .key(function(d){ return d.metric })
         .entries(data)
@@ -69,7 +233,7 @@ d3.csv("data.csv")
         .selectAll(".metric")
         .data(nest)
         .enter().append("div")
-        .attr("class", "metric")
+        .attr("class", function(d){ return(d.key == "uninsured") ? "metric " + d.key : "metric hide " + d.key})
     metric.append("div")
         .attr("class", "metricName")
         .text(function(d){ return d.key })
@@ -82,7 +246,9 @@ d3.csv("data.csv")
             .entries(n.values)
         })
         .enter().append("div")
-        .attr("class", "city")
+        .attr("class", function(d){
+          return (d.key == "US") ?  "city " + d.key.replace(/\W/g,'_') : "city hide " + d.key.replace(/\W/g,'_')
+        })
     
     city.append("div")
         .attr("class", "cityName")
@@ -104,7 +270,7 @@ d3.csv("data.csv")
 
     })
     .enter().append("div")
-    .attr("class", "race")
+    .attr("class", function(d){ return "race " + d.key })
 
     race.append("div")
         .attr("class", "raceName")
@@ -195,7 +361,7 @@ gradient.append("stop")
              return d.values
         })
         .enter().append("rect")
-        .attr("class", "moe")
+        .attr("class", "moe hide chartel")
         .attr("x", function(d){
             // console.log(d)
             return x(d.week_num)
@@ -214,8 +380,8 @@ gradient.append("stop")
             return "url(#" + d.race_var + "_" + d.geography.replace(/\W/g,'_')  + "_" +  d.metric + "_gradient" + i + ")"
             // return "url(#gradient" + i + ")"
         })
-        .style("opacity", function(d){
-            return (d.sigdiff == "1") ? 1 : .2
+        .classed("insig", function(d){
+            return (d.sigdiff == "0")
         })
 
 
@@ -232,8 +398,8 @@ gradient.append("stop")
             return y(+d.mean)
         })
         .attr("r", 4)
-        .style("opacity", function(d){
-            return (d.sigdiff == "1") ? 1 : .2
+        .classed("insig", function(d){
+            return (d.sigdiff == "0")
         })
 
     var tg = g.selectAll(".tg")
@@ -248,7 +414,7 @@ gradient.append("stop")
             return d.total
         })
         .enter().append("circle")
-        .attr("class", "tdot")
+        .attr("class", "tdot chartel hide")
         .attr("cx", function(d){
             // console.log(d)
             return x(d.week_num) + x.bandwidth()*.5
@@ -257,8 +423,8 @@ gradient.append("stop")
             return y(+d.mean)
         })
         .attr("r", 4)
-        .style("opacity", function(d){
-            return (d.sigdiff == "1") ? 1 : .2
+        .classed("insig", function(d){
+            return (d.sigdiff == "0")
         })
 
     tg.selectAll(".tmoe")
@@ -266,7 +432,7 @@ gradient.append("stop")
              return d.total
         })
         .enter().append("rect")
-        .attr("class", "tmoe")
+        .attr("class", "tmoe hide chartel")
         .attr("x", function(d){
             // console.log(d)
             return x(d.week_num)
@@ -280,8 +446,8 @@ gradient.append("stop")
         .attr("height", function(d){
             return y(+d.moe_95_lb) - y(+d.moe_95_ub)
         })
-        .style("opacity", function(d){
-            return (d.sigdiff == "1") ? 1 : .2
+        .classed("insig", function(d){
+            return (d.sigdiff == "0")
         })
 
 
