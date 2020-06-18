@@ -213,7 +213,10 @@ gradient.append("stop")
             // console.log(d)
             return "url(#" + d.race_var + "_" + d.geography.replace(/\W/g,'_')  + "_" +  d.metric + "_gradient" + i + ")"
             // return "url(#gradient" + i + ")"
-        });
+        })
+        .style("opacity", function(d){
+            return (d.sigdiff == "1") ? 1 : .2
+        })
 
 
     g.selectAll(".dot")
@@ -229,6 +232,9 @@ gradient.append("stop")
             return y(+d.mean)
         })
         .attr("r", 4)
+        .style("opacity", function(d){
+            return (d.sigdiff == "1") ? 1 : .2
+        })
 
     var tg = g.selectAll(".tg")
         .data(function(d){
@@ -251,6 +257,9 @@ gradient.append("stop")
             return y(+d.mean)
         })
         .attr("r", 4)
+        .style("opacity", function(d){
+            return (d.sigdiff == "1") ? 1 : .2
+        })
 
     tg.selectAll(".tmoe")
         .data(function(d){
@@ -270,6 +279,9 @@ gradient.append("stop")
         })
         .attr("height", function(d){
             return y(+d.moe_95_lb) - y(+d.moe_95_ub)
+        })
+        .style("opacity", function(d){
+            return (d.sigdiff == "1") ? 1 : .2
         })
 
 
