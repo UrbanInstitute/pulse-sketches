@@ -1,0 +1,71 @@
+body{
+    font-family: Lato;
+}
+.city{
+    display: inline-block;
+    padding: 50px;
+}
+.race{
+    display: inline-block;
+    margin-right: 10px;
+}
+.race.total{
+    display: none !important;
+}
+.cityName{
+    font-size: 18px;
+    font-weight: bold;
+}
+.raceName{
+    font-size: 16px;
+    text-transform: uppercase;
+    font-style: italic;
+    margin-top: 15px;
+}
+.metric{
+    display: block;
+}
+.metric.hide, .city.hide{
+    display: none;
+}
+.metric.noHide{
+    display: block !important;
+}
+.city.noHide{
+    display: inline-block !important;
+}
+.metricName{
+    width: 100%;
+    font-size: 30px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-left: 50px;
+
+}
+.dot{
+    fill: #1696d2;
+}
+.tdot{
+    fill: #696969;
+}
+.moe{
+    fill: #73bfe2;
+}
+.tmoe{
+    fill: #d2d2d2;
+}
+.insig{
+    opacity: .2;
+}
+.btn{
+    display: inline-block;
+    padding: 10px;
+    background: #d2d2d2;
+    color: #000;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.btn.active{
+    background: #1696d2;
+    color: #fff;
+}

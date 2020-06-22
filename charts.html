@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- <link rel="shortcut icon" href="favicon.ico" type="img/x-icon"> -->
+        <title>Tool</title>
+
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic,900" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="css/vendor/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <style>
+            html {
+                width: auto;
+                height: auto;
+            }
+            body {
+                margin: 0;
+                width: auto;
+                height: auto;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="container">
+
+            <select id = "metrics">
+                <option value ="all" >All indicators</option>
+                <option value ="uninsured" selected="selected">uninsured</option>
+                <option value ="insured_public">insured_public</option>
+                <option value ="inc_loss">inc_loss</option>
+                <option value ="expect_inc_loss">expect_inc_loss</option>
+                <option value ="payment_not_conf">payment_not_conf</option>
+                <option value ="food_insufficient">food_insufficient</option>
+                <option value ="classes_cancelled">classes_cancelled</option>
+                <option value ="depression_anxiety_signs">depression_anxiety_signs</option>
+            </select>
+
+            <select id = "geographies">
+                <option value ="all" >All geographies</option>
+                <option value ="US" selected="selected">US</option>
+                <option value ="AK">AK</option>
+                <option value ="AL">AL</option>
+                <option value ="AR">AR</option>
+                <option value ="AZ">AZ</option>
+                <option value ="CA">CA</option>
+                <option value ="CO">CO</option>
+                <option value ="CT">CT</option>
+                <option value ="DC">DC</option>
+                <option value ="DE">DE</option>
+                <option value ="FL">FL</option>
+                <option value ="GA">GA</option>
+                <option value ="HI">HI</option>
+                <option value ="IA">IA</option>
+                <option value ="ID">ID</option>
+                <option value ="IL">IL</option>
+                <option value ="IN">IN</option>
+                <option value ="KS">KS</option>
+                <option value ="KY">KY</option>
+                <option value ="LA">LA</option>
+                <option value ="MA">MA</option>
+                <option value ="MD">MD</option>
+                <option value ="ME">ME</option>
+                <option value ="MI">MI</option>
+                <option value ="MN">MN</option>
+                <option value ="MO">MO</option>
+                <option value ="MS">MS</option>
+                <option value ="MT">MT</option>
+                <option value ="NC">NC</option>
+                <option value ="ND">ND</option>
+                <option value ="NE">NE</option>
+                <option value ="NH">NH</option>
+                <option value ="NJ">NJ</option>
+                <option value ="NM">NM</option>
+                <option value ="NV">NV</option>
+                <option value ="NY">NY</option>
+                <option value ="OH">OH</option>
+                <option value ="OK">OK</option>
+                <option value ="OR">OR</option>
+                <option value ="PA">PA</option>
+                <option value ="RI">RI</option>
+                <option value ="SC">SC</option>
+                <option value ="SD">SD</option>
+                <option value ="TN">TN</option>
+                <option value ="TX">TX</option>
+                <option value ="UT">UT</option>
+                <option value ="VA">VA</option>
+                <option value ="VT">VT</option>
+                <option value ="WA">WA</option>
+                <option value ="WI">WI</option>
+                <option value ="WV">WV</option>
+                <option value ="WY">WY</option>
+                <option value ="Atlanta-Sandy Springs-Roswell, GA">Atlanta-Sandy Springs-Roswell, GA</option>
+                <option value ="Boston-Cambridge-Newton, MA-NH">Boston-Cambridge-Newton, MA-NH</option>
+                <option value ="Chicago-Naperville-Elgin, IL-IN-WI">Chicago-Naperville-Elgin, IL-IN-WI</option>
+                <option value ="Dallas-Fort Worth-Arlington, TX">Dallas-Fort Worth-Arlington, TX</option>
+                <option value ="Detroit-Warren-Dearborn, MI">Detroit-Warren-Dearborn, MI</option>
+                <option value ="Houston-The Woodlands-Sugar Land, TX">Houston-The Woodlands-Sugar Land, TX</option>
+                <option value ="Los Angeles-Long Beach-Anaheim, CA">Los Angeles-Long Beach-Anaheim, CA</option>
+                <option value ="Miami-Fort Lauderdale-West Palm Beach, FL">Miami-Fort Lauderdale-West Palm Beach, FL</option>
+                <option value ="New York-Newark-Jersey City, NY-NJ-PA">New York-Newark-Jersey City, NY-NJ-PA</option>
+                <option value ="Philadelphia-Camden-Wilmington, PA-NJ-DE-MD">Philadelphia-Camden-Wilmington, PA-NJ-DE-MD</option>
+                <option value ="Phoenix-Mesa-Scottsdale, AZ">Phoenix-Mesa-Scottsdale, AZ</option>
+                <option value ="Riverside-San Bernardino-Ontario, CA">Riverside-San Bernardino-Ontario, CA</option>
+                <option value ="San Francisco-Oakland-Hayward, CA">San Francisco-Oakland-Hayward, CA</option>
+                <option value ="Seattle-Tacoma-Bellevue, WA">Seattle-Tacoma-Bellevue, WA</option>
+                <option value="Washington-Arlington-Alexandria, DC-VA-MD-WV">Washington-Arlington-Alexandria, DC-VA-MD-WV</option>
+            </select>
+
+            <div id = "chart_container"></div>
+        </div>
+
+        <script src="js/vendor/pym.v1.min.js"></script>
+        <script src="js/vendor/d3.v4.min.js"></script>
+        <script src="js/vendor/jquery-1.9.1.min.js"></script>
+        <script src="js/vendor/jquery-ui.js"></script>
+        <script src="js/drawCharts.js"></script>
+
+    </body>
+</html>
