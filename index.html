@@ -58,15 +58,16 @@
 .tmoe{
     fill: #d2d2d2;
 }
-.moe.hide, .tmoe.hide{
+/*.moe.hide, .tmoe.hide{
     display: none;
 }
 .tdot.hide{
     fill: #353535;
 }
-/*.insig{
+*/
+.insig{
     opacity: .2;
-}*/
+}
 .btn{
     display: inline-block;
     padding: 10px;
@@ -166,34 +167,9 @@
     <option value="Washington-Arlington-Alexandria, DC-VA-MD-WV">Washington-Arlington-Alexandria, DC-VA-MD-WV</option>
 </select>
 
-<div class = "btn moe">Show Margins of Error</div>
-<div class = "btn sig">Show significance</div>
-
 <div id = "container"></div>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"></script>
 <script>
-
-d3.select(".btn.moe").on("click", function(){
-    if(d3.select(this).classed("active")){
-        d3.selectAll(".chartel").classed("hide", true)
-        d3.select(this).classed("active", false)
-    }else{
-        d3.selectAll(".chartel").classed("hide", false)
-        d3.select(this).classed("active", true)
-    }
-})
-d3.select(".btn.sig").on("click", function(){
-    if(d3.select(this).classed("active")){
-        d3.selectAll(".insig").style("opacity", 1)
-        d3.select(this).classed("active", false)
-    }else{
-        d3.selectAll(".insig").style("opacity", .2)
-        d3.select(this).classed("active", true)
-    }
-})
-
-
-
 d3.select("#metrics").on("change", function(){
     var m = this.value
     if(m == "all"){
@@ -305,7 +281,7 @@ d3.csv("data.csv")
              return d.values
         })
         .enter().append("rect")
-        .attr("class", "moe hide chartel")
+        .attr("class", "moe chartel")
         .attr("x", function(d){
             // console.log(d)
             return x(d.week_num)
