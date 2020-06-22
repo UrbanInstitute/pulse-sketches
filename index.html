@@ -192,8 +192,8 @@ d3.select("#geographies").on("change", function(){
 
 
 
-var h = 350,
-    w = 380;
+var h = 300,
+    w = 320;
 d3.csv("data.csv")
 .then(function(data){
     var nest = d3.nest()
@@ -262,7 +262,7 @@ d3.csv("data.csv")
 
     var x = d3.scaleBand()
         .rangeRound([0, width])
-        .padding(0)
+        .padding(0.5)
         .domain(["wk1_2","wk2_3","wk3_4"])
 
     var y = d3.scaleLinear()
