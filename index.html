@@ -266,10 +266,10 @@ d3.csv("data.csv")
         .domain(["wk1_2","wk2_3","wk3_4"])
 
     var y = d3.scaleLinear()
-        .rangeRound([height, 0])
         .domain([0,1])
+        .rangeRound([height, 0]);
 
-        g.append("g")
+    g.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x))
 
@@ -293,7 +293,7 @@ d3.csv("data.csv")
             return x.bandwidth()
         })
         .attr("height", function(d){
-            return y(+d.moe_95_lb) - y(+d.moe_95_ub)
+            return (+d.moe_95_lb < 0) ? y(0) -y(+d.moe_95_ub) : y(+d.moe_95_lb) - y(+d.moe_95_ub)
         })
         .classed("insig", function(d){
             return (d.sigdiff == "0")
@@ -323,6 +323,7 @@ d3.csv("data.csv")
         })
         .enter().append("g")
         .attr("clas","tg")
+
     tg.selectAll(".tdot")
         .data(function(d){
             // console.log(d)
@@ -359,7 +360,7 @@ d3.csv("data.csv")
             return x.bandwidth()
         })
         .attr("height", function(d){
-            return y(+d.moe_95_lb) - y(+d.moe_95_ub)
+            return (+d.moe_95_lb < 0 ) ? y(0) -y(+d.moe_95_ub) : y(+d.moe_95_lb) - y(+d.moe_95_ub)
         })
         .classed("insig", function(d){
             return (d.sigdiff == "0")
