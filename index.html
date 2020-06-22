@@ -50,18 +50,13 @@
     fill: #1696d2;
 }
 .tdot{
-    fill: none;
-    stroke: #353535;
-    stroke-dasharray: 2;
+    fill: #696969;
 }
 .moe{
-    /*fill: #1696d2;*/
-    stroke: #e3e3e3;
+    fill: #73bfe2;
 }
 .tmoe{
-    fill: none;   ;
-    stroke: #353535;
-    stroke-dasharray: 5;
+    fill: #d2d2d2;
 }
 .moe.hide, .tmoe.hide{
     display: none;
@@ -168,7 +163,7 @@
     <option value ="Riverside-San Bernardino-Ontario, CA">Riverside-San Bernardino-Ontario, CA</option>
     <option value ="San Francisco-Oakland-Hayward, CA">San Francisco-Oakland-Hayward, CA</option>
     <option value ="Seattle-Tacoma-Bellevue, WA">Seattle-Tacoma-Bellevue, WA</option>
-Washington-Arlington-Alexandria, DC-VA-MD-WV
+    <option value="Washington-Arlington-Alexandria, DC-VA-MD-WV">Washington-Arlington-Alexandria, DC-VA-MD-WV</option>
 </select>
 
 <div class = "btn moe">Show Margins of Error</div>
@@ -249,7 +244,7 @@ d3.csv("data.csv")
         .attr("class", function(d){
           return (d.key == "US") ?  "city " + d.key.replace(/\W/g,'_') : "city hide " + d.key.replace(/\W/g,'_')
         })
-    
+
     city.append("div")
         .attr("class", "cityName")
         .text(function(d){ return d.key })
@@ -304,57 +299,6 @@ d3.csv("data.csv")
 
     g.append("g")
     .call(d3.axisLeft(y))
-var defs = svg.append("defs")
-var gradients = []
-for(var i = 0; i < x.domain().length; i++){
-    var gradient = defs
-  .append("linearGradient")
-    .attr("id", function(d){
-       return d.key + "_" + d.values[0].geography.replace(/\W/g,'_')  + "_" + d.values[0].metric + "_gradient" + i
-    })
-    .attr("x1", "0%")
-    .attr("y1", "0%")
-    .attr("x2", "0%")
-    .attr("y2", "100%")
-    .attr("spreadMethod", "pad");
-
-
-
-gradient.append("stop")
-    .attr("offset", "0%")
-    .attr("stop-color", function(dv){
-        var d = dv.values[i]
-        return (+d.moe_95_ub > +d.total[i].moe_95_ub) ? "#1696d2" : "#fdbf11"
-    })
-    .attr("stop-opacity", 1);
-
-// gradient.append("stop")
-//     .attr("offset", function(dv){
-//         var d = dv.values[i]
-//         return ((+d.moe_95_ub - +d.total[i].moe_95_ub) / (+d.moe_95_ub - +d.moe_95_lb)*100) + "%"
-        
-//     })
-//     .attr("stop-color", "#696969")
-//     .attr("stop-opacity", 1);
-
-
-gradient.append("stop")
-    .attr("offset", function(dv){
-        var d = dv.values[i]
-        return ((+d.moe_95_ub - +d.total[i].mean) / (+d.moe_95_ub - +d.moe_95_lb)*100) + "%"
-        
-    })
-    .attr("stop-color", "#55b748")
-    .attr("stop-opacity", 1);
-
-
-gradient.append("stop")
-    .attr("offset", "100%")
-    .attr("stop-color", "#fdbf11")
-    .attr("stop-opacity", 1);
-}
-
-
 
     g.selectAll(".moe")
         .data(function(d){
@@ -374,11 +318,6 @@ gradient.append("stop")
         })
         .attr("height", function(d){
             return y(+d.moe_95_lb) - y(+d.moe_95_ub)
-        })
-        .style("fill", function(d, i){
-            // console.log(d)
-            return "url(#" + d.race_var + "_" + d.geography.replace(/\W/g,'_')  + "_" +  d.metric + "_gradient" + i + ")"
-            // return "url(#gradient" + i + ")"
         })
         .classed("insig", function(d){
             return (d.sigdiff == "0")
@@ -449,19 +388,6 @@ gradient.append("stop")
         .classed("insig", function(d){
             return (d.sigdiff == "0")
         })
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 })
 
