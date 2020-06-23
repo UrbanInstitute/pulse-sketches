@@ -57,21 +57,38 @@ body{
     margin-left: 50px;
 
 }
-.dot{
+
+/****************** CHART STYLES *********************/
+.race.dot{
     fill: #1696d2;
 }
-.tdot{
+
+.statelocal.dot{
     fill: #696969;
 }
-.moe{
+
+.national.dot {
+    fill: #55b748;
+}
+
+.race.moe{
     fill: #73bfe2;
 }
-.tmoe{
+
+.statelocal.moe{
     fill: #d2d2d2;
 }
+
+.national.moe {
+    fill: #78c26d;
+}
+
 .insig{
     opacity: .2;
 }
+
+
+
 .btn{
     display: inline-block;
     padding: 10px;

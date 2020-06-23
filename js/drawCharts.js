@@ -23,6 +23,7 @@ var y = d3.scaleLinear()
 
 function drawGraphic(containerWidth) {
 
+    setupChart("national");
     setupChart("asian");
     setupChart("black");
     setupChart("hispanic");
@@ -59,10 +60,19 @@ d3.csv("data/data.csv", function(d) {
 });
 
 function setupChart(race) {
-    var data = pulseData.filter(function(d) { return d.geography === "MD" &&
-                                                    (d.race_var === race || d.race_var === "total") &&
-                                                    d.metric === "uninsured"; });
-console.log(data);
+    var data;
+
+    if(race === "national") {
+        data = pulseData.filter(function(d) { return (d.geography === "MD" || d.geography === "US") &&
+                                                        d.race_var === "total" &&
+                                                        d.metric === "uninsured"; });
+    }
+    else {
+        data = pulseData.filter(function(d) { return d.geography === "MD" &&
+                                                        (d.race_var === race || d.race_var === "total") &&
+                                                        d.metric === "uninsured"; });
+    }
+
     var svg = d3.select(".chart." + race + " svg")
         .attr("width", w)
         .attr("height", h);
@@ -83,7 +93,13 @@ console.log(data);
         .data(data)
         .enter()
         .append("rect")
-        .attr("class", function(d) { return d.race_var === "total" ? "tmoe" : "moe"; })
+        .attr("class", function(d) {
+            if((race === "national") && (d.geo_type === "national")) return "national moe";
+            else {
+                if(d.race_var === "total") return "statelocal moe";
+                else return "race moe";
+            }
+        })
         .attr("x", function(d) { return x(d.week_num); })
         .attr("y", function(d) { return y(+d.moe_95_ub); })
         .attr("width", function(d) { return x.bandwidth(); })
@@ -97,7 +113,13 @@ console.log(data);
         .data(data)
         .enter()
         .append("circle")
-        .attr("class", function (d) { return d.race_var === "total" ? "tdot" : "dot"; })
+        .attr("class", function (d) {
+            if((race === "national") && (d.geo_type === "national")) return "national dot";
+            else {
+                if(d.race_var === "total") return "statelocal dot";
+                else return "race dot";
+            }
+        })
         .attr("cx", function(d) { return x(d.week_num) + x.bandwidth()*.5; })
         .attr("cy", function(d) { return y(+d.mean); })
         .attr("r", 4)
