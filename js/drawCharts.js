@@ -1,7 +1,7 @@
 var pymChild = null;
 var pulseData;
 var h = 300,
-    w = 320;
+    w = 300;
 
 var margin = {
     top: 10,
@@ -24,6 +24,10 @@ var y = d3.scaleLinear()
 function drawGraphic(containerWidth) {
 
     setupChart("asian");
+    setupChart("black");
+    setupChart("hispanic");
+    setupChart("other");
+    setupChart("white");
 
     if (pymChild) {
         pymChild.sendHeight();

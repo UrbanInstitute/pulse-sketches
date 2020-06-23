@@ -1,6 +1,21 @@
 body{
     font-family: Lato;
 }
+
+.container {
+    max-width: 960px;
+    width: 100%;
+}
+
+.chart {
+    display: inline-block;
+    float: left;
+}
+
+.chart_smallMultiples {
+    overflow-y: auto;
+}
+
 .city{
     display: inline-block;
     padding: 50px;
