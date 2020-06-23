@@ -23,47 +23,7 @@ var y = d3.scaleLinear()
 
 function drawGraphic(containerWidth) {
 
-    var example_data = pulseData.filter(function(d) { return d.geography === "MD" && (d.race_var === "asian" || d.race_var === "total") && d.metric === "uninsured"; });
-console.log(example_data);
-    var svg = d3.select(".chart.asian svg")
-        .attr("width", w)
-        .attr("height", h);
-
-    var g = svg
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    g.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
-
-    g.append("g")
-        .call(d3.axisLeft(y));
-
-    // draw margin of error bands
-    g.selectAll(".moe")
-        .data(example_data)
-        .enter()
-        .append("rect")
-        .attr("class", function(d) { return d.race_var === "total" ? "tmoe" : "moe"; })
-        .attr("x", function(d) { return x(d.week_num); })
-        .attr("y", function(d) { return y(+d.moe_95_ub); })
-        .attr("width", function(d) { return x.bandwidth(); })
-        .attr("height", function(d) {
-            return (+d.moe_95_lb < 0) ? y(0) -y(+d.moe_95_ub) : y(+d.moe_95_lb) - y(+d.moe_95_ub);
-        })
-        .classed("insig", function(d) { return (d.sigdiff === 0); });
-
-    // draw point estimate dots
-    g.selectAll(".dot")
-        .data(example_data)
-        .enter()
-        .append("circle")
-        .attr("class", function (d) { return d.race_var === "total" ? "tdot" : "dot"; })
-        .attr("cx", function(d) { return x(d.week_num) + x.bandwidth()*.5; })
-        .attr("cy", function(d) { return y(+d.mean); })
-        .attr("r", 4)
-        .classed("insig", function(d) { return (d.sigdiff === 0); });
+    setupChart("asian");
 
     if (pymChild) {
         pymChild.sendHeight();
@@ -93,6 +53,52 @@ d3.csv("data/data.csv", function(d) {
     // pymChild.onMessage("stateSelected", updateTray);
 
 });
+
+function setupChart(race) {
+    var data = pulseData.filter(function(d) { return d.geography === "MD" &&
+                                                    (d.race_var === race || d.race_var === "total") &&
+                                                    d.metric === "uninsured"; });
+console.log(data);
+    var svg = d3.select(".chart." + race + " svg")
+        .attr("width", w)
+        .attr("height", h);
+
+    var g = svg
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    g.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    g.append("g")
+        .call(d3.axisLeft(y));
+
+    // draw margin of error bands
+    g.selectAll(".moe")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", function(d) { return d.race_var === "total" ? "tmoe" : "moe"; })
+        .attr("x", function(d) { return x(d.week_num); })
+        .attr("y", function(d) { return y(+d.moe_95_ub); })
+        .attr("width", function(d) { return x.bandwidth(); })
+        .attr("height", function(d) {
+            return (d.moe_95_lb < 0) ? y(0) - y(d.moe_95_ub) : y(d.moe_95_lb) - y(d.moe_95_ub);
+        })
+        .classed("insig", function(d) { return (d.sigdiff === 0); });
+
+    // draw point estimate dots on top of all of the margin of error bands
+    g.selectAll(".dot")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("class", function (d) { return d.race_var === "total" ? "tdot" : "dot"; })
+        .attr("cx", function(d) { return x(d.week_num) + x.bandwidth()*.5; })
+        .attr("cy", function(d) { return y(+d.mean); })
+        .attr("r", 4)
+        .classed("insig", function(d) { return (d.sigdiff === 0); });
+}
 
 d3.select("#metrics").on("change", function(){
     var m = this.value
