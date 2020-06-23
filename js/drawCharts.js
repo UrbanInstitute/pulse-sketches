@@ -133,10 +133,65 @@ function setupChart(race) {
         .classed("insig", function(d) { return (d.sigdiff === 0); });
 }
 
-function updateCharts() {
+function update() {
     var metric = getMetric();
     var geo = getGeography();
-    console.log(metric, geo);
+
+    updateChart("national", metric, geo);
+    updateChart("asian", metric, geo);
+    updateChart("black", metric, geo);
+    updateChart("hispanic", metric, geo);
+    updateChart("other", metric, geo);
+    updateChart("white", metric, geo);
+}
+
+function updateChart(race, metric, geo) {
+    var data;
+
+    if(race === "national") {
+        data = pulseData.filter(function(d) { return (d.geography === geo || d.geography === "US") &&
+                                                        d.race_var === "total" &&
+                                                        d.metric === metric; });
+    }
+    else {
+        data = pulseData.filter(function(d) { return d.geography === geo &&
+                                                        (d.race_var === race || d.race_var === "total") &&
+                                                        d.metric === metric; });
+    }
+
+    var svg = d3.select(".chart." + race + " svg");
+
+    // update margin of error bands
+    svg.selectAll(".moe")
+        .data(data)
+        .attr("class", function(d) {
+            if((race === "national") && (d.geo_type === "national")) return "national moe";
+            else {
+                if(d.race_var === "total") return "statelocal moe";
+                else return "race moe";
+            }
+        })
+        .attr("x", function(d) { return x(d.week_num); })
+        .attr("y", function(d) { return y(+d.moe_95_ub); })
+        .attr("width", function(d) { return x.bandwidth(); })
+        .attr("height", function(d) {
+            return (d.moe_95_lb < 0) ? y(0) - y(d.moe_95_ub) : y(d.moe_95_lb) - y(d.moe_95_ub);
+        })
+        .classed("insig", function(d) { return (d.sigdiff === 0); });
+
+    // update point estimate dots
+    svg.selectAll(".dot")
+        .data(data)
+        .attr("class", function (d) {
+            if((race === "national") && (d.geo_type === "national")) return "national dot";
+            else {
+                if(d.race_var === "total") return "statelocal dot";
+                else return "race dot";
+            }
+        })
+        .attr("cx", function(d) { return x(d.week_num) + x.bandwidth()*.5; })
+        .attr("cy", function(d) { return y(+d.mean); })
+        .classed("insig", function(d) { return (d.sigdiff === 0); });
 }
 
 function getMetric() {
@@ -151,12 +206,9 @@ function getGeography() {
     return selected_geo;
 }
 
-d3.select("#metrics").on("change", function(){
-    // var new_metric = this.value;
-    updateCharts();
-});
+d3.select("#metrics").on("change", function(){ update(); });
 
 d3.select("#geographies").on("change", function(){
     // var m = this.value.replace(/\W/g,'_');
-    updateCharts();
+    update();
 })
