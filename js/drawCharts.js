@@ -7,7 +7,7 @@ var margin = {
     top: 10,
     right: 10,
     bottom: 25,
-    left: 25
+    left: 33
 },
     width = w - margin.left - margin.right,
     height = h - margin.top - margin.bottom;
@@ -20,6 +20,8 @@ var x = d3.scaleBand()
 var y = d3.scaleLinear()
     .domain([0,1])
     .rangeRound([height, 0]);
+
+var PCTFORMAT = d3.format(".0%");
 
 function drawGraphic(containerWidth) {
 
@@ -81,12 +83,17 @@ function setupChart(race) {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
+    // add axes
     g.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
+        .attr("class", "axis y-axis")
+        .call(d3.axisLeft(y).tickFormat(PCTFORMAT).tickSize(-width));
 
     g.append("g")
-        .call(d3.axisLeft(y));
+        .attr("class", "axis x-axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x).tickSizeOuter(0));
+
 
     // draw margin of error bands
     g.selectAll(".moe")

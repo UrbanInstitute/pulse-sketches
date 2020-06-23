@@ -87,7 +87,21 @@ body{
     opacity: .2;
 }
 
+.y-axis path.domain {
+    stroke: none;
+}
 
+.y-axis .tick line {
+    stroke: #d2d2d2;
+}
+
+text {
+    font-family: Lato;
+}
+
+.tick text {
+    font-size: 12px;
+}
 
 .btn{
     display: inline-block;
