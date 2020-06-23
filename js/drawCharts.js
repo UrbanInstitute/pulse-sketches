@@ -133,22 +133,30 @@ function setupChart(race) {
         .classed("insig", function(d) { return (d.sigdiff === 0); });
 }
 
+function updateCharts() {
+    var metric = getMetric();
+    var geo = getGeography();
+    console.log(metric, geo);
+}
+
+function getMetric() {
+    var dropdown = document.getElementById('metrics');
+    var selected_metric = dropdown.options[dropdown.selectedIndex].value;
+    return selected_metric;
+}
+
+function getGeography() {
+    var dropdown = document.getElementById('geographies');
+    var selected_geo = dropdown.options[dropdown.selectedIndex].value;
+    return selected_geo;
+}
+
 d3.select("#metrics").on("change", function(){
-    var m = this.value
-    if(m == "all"){
-        d3.selectAll(".metric").classed("hide", false)
-    }else{
-        d3.selectAll(".metric").classed("hide", true)
-        d3.selectAll(".metric." + m).classed("hide", false)
-    }
-})
+    // var new_metric = this.value;
+    updateCharts();
+});
 
 d3.select("#geographies").on("change", function(){
-    var m = this.value.replace(/\W/g,'_')
-    if(m == "all"){
-        d3.selectAll(".city").classed("hide", false)
-    }else{
-        d3.selectAll(".city").classed("hide", true)
-        d3.selectAll(".city." + m).classed("hide", false)
-    }
+    // var m = this.value.replace(/\W/g,'_');
+    updateCharts();
 })
