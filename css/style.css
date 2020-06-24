@@ -2,6 +2,12 @@ body{
     font-family: Lato;
     margin: 0;
     color: #353535;
+    line-height: 1.5rem;
+}
+
+hr {
+    border-top: 1px solid #d2d2d2;
+    margin: 2rem 0;
 }
 
 .container {
@@ -13,6 +19,15 @@ body{
     font-size: 22px;
     font-weight: bold;
     margin-top: 0;
+    margin-bottom: 2rem;
+}
+
+.trend_description {
+    margin-bottom: 2rem;
+}
+
+.what_charts_show_title {
+    font-size: 18px;
 }
 
 #chart_container {

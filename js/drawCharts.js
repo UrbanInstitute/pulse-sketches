@@ -152,6 +152,9 @@ function setupChart(race) {
     // insert chart title
     d3.select(".chart_title").text(chartTitles["uninsured"]);
 
+    // insert trend description
+    d3.select(".trend_description").html(trendDescriptions["uninsured"]);
+
     var svg = d3.select(".chart." + race + " svg")
         .attr("width", w)
         .attr("height", h);
@@ -252,6 +255,9 @@ console.log(data);
 
     // update chart title
     d3.select(".chart_title").text(chartTitles[metric]);
+
+    // insert trend description
+    d3.select(".trend_description").html(trendDescriptions[metric]);
 
     var svg = d3.select(".chart." + race + " svg");
 
