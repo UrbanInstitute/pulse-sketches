@@ -149,6 +149,9 @@ function setupChart(race) {
                                                         d.metric === "uninsured"; });
     }
 
+    // insert chart title
+    d3.select(".chart_title").text(chartTitles["uninsured"]);
+
     var svg = d3.select(".chart." + race + " svg")
         .attr("width", w)
         .attr("height", h);
@@ -246,6 +249,10 @@ function updateChart(race, metric, geo) {
                                                         d.metric === metric; });
     }
 console.log(data);
+
+    // update chart title
+    d3.select(".chart_title").text(chartTitles[metric]);
+
     var svg = d3.select(".chart." + race + " svg");
 
     // update margin of error bands

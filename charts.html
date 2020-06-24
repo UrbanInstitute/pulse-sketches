@@ -45,14 +45,15 @@
             </h2>
 
             <div class="geo_selector">
+                <div class="geo selector_title">Explore racial disparities by</div>
                 <ul>
-                    <li>
+                    <li class="geo option">
                         <label class="btnContainer" for="national">US
                             <input type="radio" id="national" name="geo" value="national" checked>
                             <span class="flatRadioBtn"></span>
                         </label>
                     </li>
-                    <li>
+                    <li class="geo option">
                         <label class="btnContainer" for="state">State
                             <input type="radio" id="state" name="geo" value="state">
                             <span class="flatRadioBtn"></span>
@@ -113,28 +114,28 @@
                             </select>
                         </div>
                     </li>
-                    <li>
+                    <li class="geo option">
                         <label class="btnContainer" for="msa">Metro area
                             <input type="radio" id="msa" name="geo" value="msa">
                             <span class="flatRadioBtn"></span>
                         </label>
                         <div class="dropdown_container msas disabled">
                             <select class="geo dropdown" id="msas">
-                                <option value ="Atlanta-Sandy Springs-Roswell, GA" selected="selected">Atlanta-Sandy Springs-Roswell, GA</option>
-                                <option value ="Boston-Cambridge-Newton, MA-NH">Boston-Cambridge-Newton, MA-NH</option>
-                                <option value ="Chicago-Naperville-Elgin, IL-IN-WI">Chicago-Naperville-Elgin, IL-IN-WI</option>
-                                <option value ="Dallas-Fort Worth-Arlington, TX">Dallas-Fort Worth-Arlington, TX</option>
-                                <option value ="Detroit-Warren-Dearborn, MI">Detroit-Warren-Dearborn, MI</option>
-                                <option value ="Houston-The Woodlands-Sugar Land, TX">Houston-The Woodlands-Sugar Land, TX</option>
-                                <option value ="Los Angeles-Long Beach-Anaheim, CA">Los Angeles-Long Beach-Anaheim, CA</option>
-                                <option value ="Miami-Fort Lauderdale-West Palm Beach, FL">Miami-Fort Lauderdale-West Palm Beach, FL</option>
-                                <option value ="New York-Newark-Jersey City, NY-NJ-PA">New York-Newark-Jersey City, NY-NJ-PA</option>
-                                <option value ="Philadelphia-Camden-Wilmington, PA-NJ-DE-MD">Philadelphia-Camden-Wilmington, PA-NJ-DE-MD</option>
-                                <option value ="Phoenix-Mesa-Scottsdale, AZ">Phoenix-Mesa-Scottsdale, AZ</option>
-                                <option value ="Riverside-San Bernardino-Ontario, CA">Riverside-San Bernardino-Ontario, CA</option>
-                                <option value ="San Francisco-Oakland-Hayward, CA">San Francisco-Oakland-Hayward, CA</option>
-                                <option value ="Seattle-Tacoma-Bellevue, WA">Seattle-Tacoma-Bellevue, WA</option>
-                                <option value="Washington-Arlington-Alexandria, DC-VA-MD-WV">Washington-Arlington-Alexandria, DC-VA-MD-WV</option>
+                                <option value ="Atlanta-Sandy Springs-Roswell, GA" selected="selected">Atlanta</option>
+                                <option value ="Boston-Cambridge-Newton, MA-NH">Boston-Providence</option>
+                                <option value ="Chicago-Naperville-Elgin, IL-IN-WI">Chicago</option>
+                                <option value ="Dallas-Fort Worth-Arlington, TX">Dallas/Fort Worth</option>
+                                <option value ="Detroit-Warren-Dearborn, MI">Detroit</option>
+                                <option value ="Houston-The Woodlands-Sugar Land, TX">Houston</option>
+                                <option value ="Los Angeles-Long Beach-Anaheim, CA">Los Angeles</option>
+                                <option value ="Miami-Fort Lauderdale-West Palm Beach, FL">Miami/Fort Lauderdale</option>
+                                <option value ="New York-Newark-Jersey City, NY-NJ-PA">New York</option>
+                                <option value ="Philadelphia-Camden-Wilmington, PA-NJ-DE-MD">Philadelphia</option>
+                                <!-- <option value ="Phoenix-Mesa-Scottsdale, AZ">Phoenix-Mesa-Scottsdale, AZ</option> -->
+                                <!-- <option value ="Riverside-San Bernardino-Ontario, CA">Riverside-San Bernardino-Ontario, CA</option> -->
+                                <option value ="San Francisco-Oakland-Hayward, CA">San Francisco</option>
+                                <option value ="Seattle-Tacoma-Bellevue, WA">Seattle</option>
+                                <option value="Washington-Arlington-Alexandria, DC-VA-MD-WV">Washington DC/Baltimore</option>
                             </select>
                         </div>
                     </li>
@@ -177,6 +178,7 @@
         <script src="js/vendor/d3.v4.min.js"></script>
         <script src="js/vendor/jquery-1.9.1.min.js"></script>
         <script src="js/vendor/jquery-ui.js"></script>
+        <script src="js/chartTitles.js"></script>
         <script src="js/drawCharts.js"></script>
 
     </body>

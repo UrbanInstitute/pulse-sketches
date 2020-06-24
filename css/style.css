@@ -1,6 +1,7 @@
 body{
     font-family: Lato;
     margin: 0;
+    color: #353535;
 }
 
 .container {
@@ -8,10 +9,14 @@ body{
     width: 100%;
 }
 
-h2.title {
+.title {
     font-size: 22px;
     font-weight: bold;
     margin-top: 0;
+}
+
+#chart_container {
+    clear: both;
 }
 
 .chart {
@@ -23,60 +28,45 @@ h2.title {
     overflow-y: auto;
 }
 
-.city{
-    display: inline-block;
-    padding: 50px;
-}
-.race{
-    display: inline-block;
-    margin-right: 10px;
-}
-.race.total{
-    display: none !important;
-}
-.cityName{
-    font-size: 18px;
-    font-weight: bold;
-}
-.raceName{
-    font-size: 16px;
-    text-transform: uppercase;
-    font-style: italic;
-    margin-top: 15px;
-}
-.metric{
-    display: block;
-}
-.metric.hide, .city.hide{
-    display: none;
-}
-.metric.noHide{
-    display: block !important;
-}
-.city.noHide{
-    display: inline-block !important;
-}
-.metricName{
-    width: 100%;
-    font-size: 30px;
-    font-weight: 900;
-    text-transform: uppercase;
-    margin-left: 50px;
-
+.chart_title {
+    font-size: 22px;
+    font-weight: normal;
+    line-height: 32px;
 }
 
 /****************** SELECTOR STYLES ******************/
-ul {
-    list-style-type: none;
-    padding-left: 0;
+.geo_selector {
+    overflow-y: auto;
 }
 
-li {
-    font-size: 20px;
+.geo.selector_title {
     /*display: inline-block;*/
     /*float: left;*/
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
+ul {
+    /*display: inline-block;*/
+    /*float: left;*/
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.geo.option {
+    font-size: 20px;
+    display: inline-block;
+    float: left;
+    margin-right: 50px;
+}
+
+.geo.option:last-of-type {
+    margin-right: 0;
+}
+
+/*** styles for radio buttons ***/
 .btnContainer {
     display: block;
     position: relative;
@@ -113,6 +103,7 @@ li {
     opacity: 0.5;
 }
 
+/*** styles for dropdown ***/
 #metrics-button {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -147,7 +138,7 @@ li {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;   /* remove default arrow */
-    width: 430px;
+    width: 300px;
     height: 50px;
     /*background: #ffffff;*/
     border: 1px solid #d2d2d2;
