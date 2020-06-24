@@ -64,6 +64,48 @@ h2.title {
 }
 
 /****************** SELECTOR STYLES ******************/
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    font-size: 20px;
+    /*display: inline-block;*/
+    /*float: left;*/
+}
+
+.btnContainer {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 20px;
+    line-height: 24px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.btnContainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.flatRadioBtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    border: 1px solid #353535;
+    border-radius: 50%;
+}
+
+.btnContainer input:checked ~ .flatRadioBtn {
+    background-color: #1696d2;
+    border: 1px solid #1696d2;
+}
+
 .disabled {
     pointer-events: none;
     opacity: 0.5;
