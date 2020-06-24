@@ -7,6 +7,11 @@ body{
     width: 100%;
 }
 
+h2.title {
+    font-size: 22px;
+    font-weight: bold;
+}
+
 .chart {
     display: inline-block;
     float: left;
@@ -62,6 +67,84 @@ body{
 .disabled {
     pointer-events: none;
     opacity: 0.5;
+}
+
+#metrics-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;   /* remove default arrow */
+    width: 330px;
+    height: 50px;
+    /*background: #ffffff;*/
+    border: 1px solid #d2d2d2;
+    border-radius: 0;
+    font-family: Lato;
+    cursor: pointer;
+    background: url("../img/arrow-blue.png") 96% / 15% no-repeat #ffffff;
+    background-size: auto;
+}
+
+#states-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;   /* remove default arrow */
+    width: 260px;
+    height: 50px;
+    /*background: #ffffff;*/
+    border: 1px solid #d2d2d2;
+    border-radius: 0;
+    font-family: Lato;
+    cursor: pointer;
+    background: url("../img/arrow-blue.png") 96% / 15% no-repeat #ffffff;
+    background-size: auto;
+}
+
+#msas-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;   /* remove default arrow */
+    width: 430px;
+    height: 50px;
+    /*background: #ffffff;*/
+    border: 1px solid #d2d2d2;
+    border-radius: 0;
+    font-family: Lato;
+    cursor: pointer;
+    background: url("../img/arrow-blue.png") 96% / 15% no-repeat #ffffff;
+    background-size: auto;
+}
+
+/*select::-ms-expand {
+    display: none;
+}
+*/
+/* https://stackoverflow.com/questions/17553300/change-ie-background-color-on-unopened-focused-select-box */
+/*
+select:focus::-ms-value {
+    color: #1696d2;
+    background: none;
+}
+option {
+    background: #ffffff;
+}*/
+
+/* https://stackoverflow.com/questions/13694271/modify-select-so-only-the-first-one-is-gray
+select:invalid,
+select option[value=""] {
+    color: #353535;
+}*/
+
+.ui-selectmenu-menu .ui-menu {
+    max-height: 300px;
+}
+
+.ui-selectmenu-text {
+    font-size: 22px;
+    font-weight: normal;
+    color: #353535;
+    width: 90%;
+    left: 11px;
+    top: 2px;
 }
 
 /*****************************************************/

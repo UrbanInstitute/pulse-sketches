@@ -23,6 +23,31 @@ var y = d3.scaleLinear()
 
 var PCTFORMAT = d3.format(".0%");
 
+// Turn dropdown into jQuery UI selectmenu
+$( function() {
+    $( "#metrics" ).selectmenu({
+        change: function( event, data ) {
+            update();
+        },
+    });
+});
+
+$( function() {
+    $( "#states" ).selectmenu({
+        change: function( event, data ) {
+            update();
+        },
+    });
+});
+
+$( function() {
+    $( "#msas" ).selectmenu({
+        change: function( event, data ) {
+            update();
+        },
+    });
+});
+
 function drawGraphic(containerWidth) {
 
     setupChart("national");
@@ -149,6 +174,8 @@ function update() {
     updateChart("hispanic", metric, geo);
     updateChart("other", metric, geo);
     updateChart("white", metric, geo);
+
+    pymChild.sendHeight();
 }
 
 function updateChart(race, metric, geo) {
@@ -164,7 +191,7 @@ function updateChart(race, metric, geo) {
                                                         (d.race_var === race || d.race_var === "total") &&
                                                         d.metric === metric; });
     }
-
+console.log(data);
     var svg = d3.select(".chart." + race + " svg");
 
     // update margin of error bands
@@ -201,9 +228,11 @@ function updateChart(race, metric, geo) {
 }
 
 function getMetric() {
-    var dropdown = document.getElementById('metrics');
-    var selected_metric = dropdown.options[dropdown.selectedIndex].value;
-    return selected_metric;
+    // var dropdown = document.getElementById('metrics');
+    // var selected_metric = dropdown.options[dropdown.selectedIndex].value;
+
+    return d3.select("#metrics").property("value");
+    // return selected_metric;
 }
 
 function getGeographyLevel() {
@@ -231,8 +260,6 @@ function getGeography(geo_level) {
     var selected_geo = dropdown.options[dropdown.selectedIndex].value;
     return selected_geo;
 }
-
-d3.select("#metrics").on("change", function() { update(); });
 
 d3.selectAll("input[name='geo']").on("change", function() { update(); });
 
