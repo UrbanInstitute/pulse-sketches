@@ -10,6 +10,10 @@ hr {
     margin: 2rem 0;
 }
 
+p {
+    margin: 2rem 0;
+}
+
 .container {
     max-width: 960px;
     width: 100%;
@@ -28,6 +32,7 @@ hr {
 
 .what_charts_show_title {
     font-size: 18px;
+    margin: 2rem 0;
 }
 
 #chart_container {
@@ -259,3 +264,11 @@ text {
     background: #1696d2;
     color: #fff;
 }
+
+
+/**************** LEGEND STYLES **********************/
+svg.legend:first-of-type {
+    margin-right: 10%
+}
+
+/*****************************************************/

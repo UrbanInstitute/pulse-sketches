@@ -52,6 +52,34 @@
                 <h4 class="what_charts_show_title">What are these charts showing?</h4>
 
                 <p>Since April 23, 2020, the Census Household Pulse Survey has collected weekly data from US adults regarding the effects of the COVID-19 pandemic on themselves and their households and how they are recovering. These charts show two-week averages of that data for both the broad geographic level and broken down by race. In many cases, the race-specific data have a large degree of uncertainty and we cannot statistically conclude that they differ from the state averages (we say that these differences are not statistically significant). For clarity, we have made non-statistically significant results transparent. More information about the data can be found in the technical appendix at the bottom of the page.</p>
+
+                <svg class="legend" height="118" width="352">
+                    <rect x="0" y="0" height="118" width="54" fill="#73BFE2"></rect>
+                    <circle cx="27" cy="59" r="5" fill="#1696d2"></circle>
+
+                    <rect x="70" y="43" height="32" width="54" fill="#d2d2d2"></rect>
+                    <circle cx="97" cy="59" r="5" fill="#696969"></circle>
+
+                    <text x="134" y="59" dy=".32em" fill="#353535">Estimate with margin of error</text>
+                </svg>
+                <svg class="legend" height="118px" width="348px">
+                    <rect x="0" y="0" height="54" width="54" fill="#73BFE2"></rect>
+                    <circle cx="27" cy="27" r="5" fill="#1696d2"></circle>
+
+                    <rect x="70" y="11" height="32" width="54" fill="#d2d2d2"></rect>
+                    <circle cx="97" cy="27" r="5" fill="#696969"></circle>
+
+                    <text x="134" y="27" dy=".32em" fill="#353535">Statistically significant</text>
+
+                    <rect x="0" y="64" height="54" width="54" fill="#73BFE2" opacity="0.5"></rect>
+                    <circle cx="27" cy="91" r="5" fill="#1696d2" opacity="0.5"></circle>
+
+                    <rect x="70" y="75" height="32" width="54" fill="#d2d2d2" opacity="0.5"></rect>
+                    <circle cx="97" cy="91" r="5" fill="#696969" opacity="0.5"></circle>
+
+                    <text x="134" y="91" dy=".32em" fill="#353535">Not statistically significant</text>
+
+                </svg>
             </div>
 
             <hr>
