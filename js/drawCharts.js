@@ -23,6 +23,54 @@ var y = d3.scaleLinear()
 
 var PCTFORMAT = d3.format(".0%");
 
+// dummy data so that elements are entered on the National graph on load
+// as placeholders for the state/MSA-specific points
+// the chart initializes with US as the selected geo so only
+// 3 points will be drawn on the first small multiple chart if we don't
+// add placeholders for future state or MSA-level data
+var dummy_state_data = [
+    {
+        geo_type: "state",
+        geography: "dummy data",
+        mean: -1,
+        metric: "uninsured",
+        moe_95: 0,
+        moe_95_lb: 0,
+        moe_95_ub: 0,
+        race_var: "total",
+        se: 0,
+        sigdiff: 0,
+        week_num: "wk1_2",
+    },
+    {
+        geo_type: "state",
+        geography: "dummy data",
+        mean: -1,
+        metric: "uninsured",
+        moe_95: 0,
+        moe_95_lb: 0,
+        moe_95_ub: 0,
+        race_var: "total",
+        se: 0,
+        sigdiff: 0,
+        week_num: "wk2_3",
+    },
+        {
+        geo_type: "state",
+        geography: "dummy data",
+        mean: -1,
+        metric: "uninsured",
+        moe_95: 0,
+        moe_95_lb: 0,
+        moe_95_ub: 0,
+        race_var: "total",
+        se: 0,
+        sigdiff: 0,
+        week_num: "wk3_4",
+    }
+];
+
+
 // Turn dropdowns into jQuery UI selectmenu
 $( function() {
     $( "#metrics" ).selectmenu({
@@ -92,7 +140,8 @@ function setupChart(race) {
     if(race === "national") {
         data = pulseData.filter(function(d) { return (d.geography === "US") &&
                                                         d.race_var === "total" &&
-                                                        d.metric === "uninsured"; });
+                                                        d.metric === "uninsured"; })
+                        .concat(dummy_state_data);
     }
     else {
         data = pulseData.filter(function(d) { return d.geography === "US" &&
@@ -187,6 +236,9 @@ function updateChart(race, metric, geo) {
         data = pulseData.filter(function(d) { return (d.geography === geo || d.geography === "US") &&
                                                         d.race_var === "total" &&
                                                         d.metric === metric; });
+        if(geo === "US") {
+            data = data.concat(dummy_state_data);
+        }
     }
     else {
         data = pulseData.filter(function(d) { return d.geography === geo &&
