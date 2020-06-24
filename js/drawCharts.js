@@ -207,7 +207,23 @@ function getMetric() {
 }
 
 function getGeographyLevel() {
-    return d3.selectAll("input[name='geo']:checked").property("value");
+    var geo_level = d3.selectAll("input[name='geo']:checked").property("value");
+
+    // make sure appropriate dropdown menus are or aren't disabled based on selection
+    if(geo_level === "national") {
+        d3.select(".states.dropdown_container").classed("disabled", true);
+        d3.select(".msas.dropdown_container").classed("disabled", true);
+    }
+    else if(geo_level === "state") {
+        d3.select(".states.dropdown_container").classed("disabled", false);
+        d3.select(".msas.dropdown_container").classed("disabled", true);
+    }
+    else if(geo_level === "msa") {
+        d3.select(".states.dropdown_container").classed("disabled", true);
+        d3.select(".msas.dropdown_container").classed("disabled", false);
+    }
+
+    return geo_level;
 }
 
 function getGeography(geo_level) {
