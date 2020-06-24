@@ -90,12 +90,12 @@ function setupChart(race) {
     var data;
 
     if(race === "national") {
-        data = pulseData.filter(function(d) { return (d.geography === "MD" || d.geography === "US") &&
+        data = pulseData.filter(function(d) { return (d.geography === "US") &&
                                                         d.race_var === "total" &&
                                                         d.metric === "uninsured"; });
     }
     else {
-        data = pulseData.filter(function(d) { return d.geography === "MD" &&
+        data = pulseData.filter(function(d) { return d.geography === "US" &&
                                                         (d.race_var === race || d.race_var === "total") &&
                                                         d.metric === "uninsured"; });
     }
@@ -164,7 +164,7 @@ function update() {
     // need to figure out which geography level is active
     var geo_level = getGeographyLevel();
     var geo;
-    if(geo_level === "national") geo = "national";
+    if(geo_level === "national") geo = "US";
     else if(geo_level === "state") geo = getGeography("state");
     else if(geo_level === "msa") geo = getGeography("msa");
 
