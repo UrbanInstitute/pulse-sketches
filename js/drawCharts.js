@@ -1,7 +1,7 @@
 var pymChild = null;
 var pulseData;
 var h = 300,
-    w = 300;
+    w = 450;
 
 var margin = {
     top: 10,
@@ -15,7 +15,7 @@ var margin = {
 var x = d3.scaleBand()
     .rangeRound([0, width])
     .padding(0.2)
-    .domain(["wk1_2","wk2_3","wk3_4"]);
+    .domain(["wk1_2","wk2_3","wk3_4","wk4_5","wk5_6"]);
 
 var y = d3.scaleLinear()
     .domain([0,1])
@@ -110,7 +110,7 @@ function drawGraphic(containerWidth) {
     }
 }
 
-d3.csv("data/data.csv", function(d) {
+d3.csv("data/rolling_all_to_current_week.csv", function(d) {
     return {
         geography: d.geography,
         metric: d.metric,
@@ -172,7 +172,7 @@ function setupChart(race) {
     g.append("g")
         .attr("class", "axis x-axis")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x).tickSizeOuter(0).tickFormat(function(d, i) { return "Week " + i + " and " + (i+1) + " Avg."; }))
+        .call(d3.axisBottom(x).tickSizeOuter(0).tickFormat(function(d, i) { return "Week " + (i+1) + " and " + (i+2) + " Avg."; }))
         .selectAll(".tick text")
         .call(wrap, x.bandwidth());
 
