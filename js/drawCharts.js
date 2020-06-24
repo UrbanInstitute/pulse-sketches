@@ -6,7 +6,7 @@ var h = 300,
 var margin = {
     top: 10,
     right: 10,
-    bottom: 25,
+    bottom: 35,
     left: 33
 },
     width = w - margin.left - margin.right,
@@ -14,7 +14,7 @@ var margin = {
 
 var x = d3.scaleBand()
     .rangeRound([0, width])
-    .padding(0.5)
+    .padding(0.2)
     .domain(["wk1_2","wk2_3","wk3_4"]);
 
 var y = d3.scaleLinear()
@@ -23,7 +23,7 @@ var y = d3.scaleLinear()
 
 var PCTFORMAT = d3.format(".0%");
 
-// Turn dropdown into jQuery UI selectmenu
+// Turn dropdowns into jQuery UI selectmenu
 $( function() {
     $( "#metrics" ).selectmenu({
         change: function( event, data ) {
@@ -117,9 +117,11 @@ function setupChart(race) {
     g.append("g")
         .attr("class", "axis x-axis")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x).tickSizeOuter(0));
+        .call(d3.axisBottom(x).tickSizeOuter(0).tickFormat(function(d, i) { return "Week " + i + " and " + (i+1) + " Avg."; }))
+        .selectAll(".tick text")
+        .call(wrap, x.bandwidth());
 
-
+// "Week 1 and 2 Avg.","Week 2 and 3 Avg.","Week 3 and 4 Avg."
     // draw margin of error bands
     g.selectAll(".moe")
         .data(data)
@@ -263,9 +265,26 @@ function getGeography(geo_level) {
 
 d3.selectAll("input[name='geo']").on("change", function() { update(); });
 
-d3.select("#states").on("change", function() {
-    // var m = this.value.replace(/\W/g,'_');
-    update();
-})
-
-d3.select("#msas").on("change", function() { update(); });
+function wrap(text, width) {
+  text.each(function() {
+    var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 1.1, // ems
+        y = text.attr("y"),
+        dy = parseFloat(text.attr("dy")),
+        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em")
+    while (word = words.pop()) {
+      line.push(word)
+      tspan.text(line.join(" "))
+      if (tspan.node().getComputedTextLength() > width) {
+        line.pop()
+        tspan.text(line.join(" "))
+        line = [word]
+        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", `${++lineNumber * lineHeight + dy}em`).text(word)
+      }
+    }
+  })
+}
