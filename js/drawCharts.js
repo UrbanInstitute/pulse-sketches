@@ -135,7 +135,13 @@ function setupChart(race) {
 
 function update() {
     var metric = getMetric();
-    var geo = getGeography();
+
+    // need to figure out which geography level is active
+    var geo_level = getGeographyLevel();
+    var geo;
+    if(geo_level === "national") geo = "national";
+    else if(geo_level === "state") geo = getGeography("state");
+    else if(geo_level === "msa") geo = getGeography("msa");
 
     updateChart("national", metric, geo);
     updateChart("asian", metric, geo);
@@ -200,15 +206,23 @@ function getMetric() {
     return selected_metric;
 }
 
-function getGeography() {
-    var dropdown = document.getElementById('geographies');
+function getGeographyLevel() {
+    return d3.selectAll("input[name='geo']:checked").property("value");
+}
+
+function getGeography(geo_level) {
+    var dropdown = document.getElementById(geo_level + 's');
     var selected_geo = dropdown.options[dropdown.selectedIndex].value;
     return selected_geo;
 }
 
-d3.select("#metrics").on("change", function(){ update(); });
+d3.select("#metrics").on("change", function() { update(); });
 
-d3.select("#geographies").on("change", function(){
+d3.selectAll("input[name='geo']").on("change", function() { update(); });
+
+d3.select("#states").on("change", function() {
     // var m = this.value.replace(/\W/g,'_');
     update();
 })
+
+d3.select("#msas").on("change", function() { update(); });
