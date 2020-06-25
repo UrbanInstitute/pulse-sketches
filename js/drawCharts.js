@@ -198,7 +198,7 @@ function setupChart(race) {
         .classed("insig", function(d) {
             if(d.geography === "dummy data") return false;
             else if(d.race_var !== "total") return (d.sigdiff === 0);
-            else if(race === "national") return false;
+            else if(race === "national") return (d.sigdiff === 0);
             else {
                 // need to figure out if the overall average bar is statistically significantly different or not
                 // based on whether the corresponding race-specific datum for that week is
@@ -225,7 +225,7 @@ function setupChart(race) {
         .classed("insig", function(d) {
             if(d.geography === "dummy data") return false;
             else if(d.race_var !== "total") return (d.sigdiff === 0);
-            else if(race === "national") return false;
+            else if(race === "national") return (d.sigdiff === 0);
             else {
                 // need to figure out if the overall average bar is statistically significantly different or not
                 // based on whether the corresponding race-specific datum for that week is
@@ -271,7 +271,7 @@ function updateChart(race, metric, geo) {
                                                         (d.race_var === race || d.race_var === "total") &&
                                                         d.metric === metric; });
     }
-console.log(data);
+// console.log(data);
 
     // update chart title
     d3.select(".chart_title").text(chartTitles[metric]);
@@ -300,7 +300,16 @@ console.log(data);
         .classed("insig", function(d) {
             if(d.geography === "dummy data") return false;
             else if(d.race_var !== "total") return (d.sigdiff === 0);
-            else if(race === "national") return false;
+            else if(race === "national") {
+                if(geo !== "US") {
+                    // if selected geo isn't US, on national plot, need to figure out if US average is
+                    // statistically significant different
+                    // or not based on whether the corresponding state or local datum for that week is
+                    var corresponding_race_data = data.filter(function(x) { return (x.week_num === d.week_num) && (x.geography !== "US"); });
+                    return corresponding_race_data[0].sigdiff === 0;
+                }
+                else return (d.sigdiff === 0);
+            }
             else {
                 // need to figure out if the overall average bar is statistically significantly different or not
                 // based on whether the corresponding race-specific datum for that week is
@@ -324,7 +333,16 @@ console.log(data);
         .classed("insig", function(d) {
             if(d.geography === "dummy data") return false;
             else if(d.race_var !== "total") return (d.sigdiff === 0);
-            else if(race === "national") return false;
+            else if(race === "national") {
+                if(geo !== "US") {
+                    // if selected geo isn't US, on national plot, need to figure out if US average is
+                    // statistically significant different
+                    // or not based on whether the corresponding state or local datum for that week is
+                    var corresponding_race_data = data.filter(function(x) { return (x.week_num === d.week_num) && (x.geography !== "US"); });
+                    return corresponding_race_data[0].sigdiff === 0;
+                }
+                else return (d.sigdiff === 0);
+            }
             else {
                 // need to figure out if the overall average bar is statistically significantly different or not
                 // based on whether the corresponding race-specific datum for that week is
