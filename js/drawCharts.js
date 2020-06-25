@@ -1,16 +1,15 @@
 var pymChild = null;
 var pulseData;
-var h = 300,
-    w = 450;
 
 var margin = {
     top: 10,
     right: 10,
     bottom: 35,
     left: 33
-},
-    width = w - margin.left - margin.right,
-    height = h - margin.top - margin.bottom;
+};
+
+var width,
+    height;
 
 var x = d3.scaleBand()
     .domain(["wk1_2","wk2_3","wk3_4","wk4_5","wk5_6"])
@@ -123,17 +122,13 @@ $( function() {
 });
 
 function drawGraphic(containerWidth) {
-    if(containerWidth < 450) {
-        w = containerWidth;
-        h = w * 0.66;
-    }
 
     if(containerWidth < 392) {
         margin.bottom = 50;
     }
 
-    width = w - margin.left - margin.right;
-    height = h - margin.top - margin.bottom;
+    width = (containerWidth < 450) ? containerWidth - margin.left - margin.right : 450 - margin.left - margin.right;
+    height = (width * 0.66) - margin.top - margin.bottom;
 
     x.rangeRound([0, width]);
     y.rangeRound([height, 0]);
@@ -205,8 +200,8 @@ console.log(data);
     d3.select(".trend_description").html(trendDescriptions["uninsured"]);
 
     var svg = d3.select(".chart." + race + " svg")
-        .attr("width", w)
-        .attr("height", h);
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
 
     var g = svg
         .append("g")
