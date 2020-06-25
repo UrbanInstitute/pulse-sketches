@@ -46,12 +46,14 @@ p {
 
 .chart_smallMultiples {
     overflow-y: auto;
+    clear: both;
 }
 
 .chart_title {
     font-size: 22px;
     font-weight: normal;
     line-height: 32px;
+    margin: 2rem 0;
 }
 
 /****************** SELECTOR STYLES ******************/
@@ -269,6 +271,32 @@ text {
 /**************** LEGEND STYLES **********************/
 svg.legend:first-of-type {
     margin-right: 10%
+}
+
+.legendEntry {
+    display: inline-block;
+    float: left;
+    margin-right: 20px;
+}
+
+.legendDot {
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.legendDot.national {
+    background-color: #55b748;
+}
+
+.legendDot.statelocal {
+    background-color: #696969;
+}
+
+.legendDot.race {
+    background-color: #1696d2;
 }
 
 /*****************************************************/
