@@ -306,7 +306,7 @@ select option[value=""] {
 }
 
 .national.dot {
-    fill: #55b748;
+    fill: #408941;
 }
 
 .race.moe{
@@ -319,7 +319,7 @@ select option[value=""] {
 }
 
 .national.moe {
-    fill: #78c26d;
+    fill: #55b748;
     mix-blend-mode: multiply;
 }
 
