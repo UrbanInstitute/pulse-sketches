@@ -324,7 +324,7 @@ select option[value=""] {
 }
 
 .insig{
-    opacity: .4;
+    opacity: .25;
 }
 
 .y-axis path.domain {
