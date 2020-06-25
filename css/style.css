@@ -2,7 +2,8 @@ body{
     font-family: Lato;
     margin: 0;
     color: #353535;
-    line-height: 1.5rem;
+    line-height: 1.8;
+    font-size: 18px;
 }
 
 hr {
@@ -12,6 +13,10 @@ hr {
 
 p {
     margin: 2rem 0;
+}
+
+.legend p {
+    font-size: 16px;
 }
 
 .container {
