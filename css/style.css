@@ -42,6 +42,12 @@ p {
 .chart {
     display: inline-block;
     float: left;
+    margin-right: 40px;
+    margin-bottom: 40px;
+}
+
+.chart:nth-of-type(2n) {
+    margin-right: 0;
 }
 
 .chart_smallMultiples {
@@ -54,6 +60,10 @@ p {
     font-weight: normal;
     line-height: 32px;
     margin: 2rem 0;
+}
+
+h4 {
+    margin-top: 0;
 }
 
 /****************** SELECTOR STYLES ******************/
@@ -228,10 +238,12 @@ select option[value=""] {
 
 .statelocal.moe{
     fill: #d2d2d2;
+    mix-blend-mode: multiply;
 }
 
 .national.moe {
     fill: #78c26d;
+    mix-blend-mode: multiply;
 }
 
 .insig{
@@ -269,8 +281,17 @@ text {
 
 
 /**************** LEGEND STYLES **********************/
+/*div.legend {
+    margin: 2rem 0;
+}
+*/
 svg.legend:first-of-type {
     margin-right: 10%
+}
+
+.chart_legend {
+    margin: 2rem 0;
+    overflow-y: auto;
 }
 
 .legendEntry {
