@@ -55,7 +55,7 @@ var dummy_state_data = [
         sigdiff: 0,
         week_num: "wk2_3",
     },
-        {
+    {
         geo_type: "state",
         geography: "dummy data",
         mean: -1,
@@ -67,6 +67,32 @@ var dummy_state_data = [
         se: 0,
         sigdiff: 0,
         week_num: "wk3_4",
+    },
+    {
+        geo_type: "state",
+        geography: "dummy data",
+        mean: -1,
+        metric: "uninsured",
+        moe_95: 0,
+        moe_95_lb: 0,
+        moe_95_ub: 0,
+        race_var: "total",
+        se: 0,
+        sigdiff: 0,
+        week_num: "wk4_5",
+    },
+    {
+        geo_type: "state",
+        geography: "dummy data",
+        mean: -1,
+        metric: "uninsured",
+        moe_95: 0,
+        moe_95_lb: 0,
+        moe_95_ub: 0,
+        race_var: "total",
+        se: 0,
+        sigdiff: 0,
+        week_num: "wk5_6",
     }
 ];
 
@@ -110,6 +136,7 @@ function drawGraphic(containerWidth) {
     }
 }
 
+// data can be found here: https://ui-census-pulse-survey.s3.amazonaws.com/rolling_all_to_current_week.csv
 d3.csv("data/rolling_all_to_current_week.csv", function(d) {
     return {
         geography: d.geography,
@@ -148,7 +175,7 @@ function setupChart(race) {
                                                         (d.race_var === race || d.race_var === "total") &&
                                                         d.metric === "uninsured"; });
     }
-
+console.log(data);
     // insert chart title
     d3.select(".chart_title").text(chartTitles["uninsured"]);
 
@@ -176,14 +203,13 @@ function setupChart(race) {
         .selectAll(".tick text")
         .call(wrap, x.bandwidth());
 
-// "Week 1 and 2 Avg.","Week 2 and 3 Avg.","Week 3 and 4 Avg."
     // draw margin of error bands
     g.selectAll(".moe")
         .data(data)
         .enter()
         .append("rect")
         .attr("class", function(d) {
-            if((race === "national") && (d.geo_type === "national")) return "national moe";
+            if((d.geo_type === "national") && (d.race_var === "total")) return "national moe";
             else {
                 if(d.race_var === "total") return "statelocal moe";
                 else return "race moe";
@@ -203,7 +229,7 @@ function setupChart(race) {
         .enter()
         .append("circle")
         .attr("class", function (d) {
-            if((race === "national") && (d.geo_type === "national")) return "national dot";
+            if((d.geo_type === "national") && (d.race_var === "total")) return "national dot";
             else {
                 if(d.race_var === "total") return "statelocal dot";
                 else return "race dot";
@@ -265,7 +291,7 @@ console.log(data);
     svg.selectAll(".moe")
         .data(data)
         .attr("class", function(d) {
-            if((race === "national") && (d.geo_type === "national")) return "national moe";
+            if((d.geo_type === "national") && (d.race_var === "total")) return "national moe";
             else {
                 if(d.race_var === "total") return "statelocal moe";
                 else return "race moe";
@@ -283,7 +309,7 @@ console.log(data);
     svg.selectAll(".dot")
         .data(data)
         .attr("class", function (d) {
-            if((race === "national") && (d.geo_type === "national")) return "national dot";
+            if((d.geo_type === "national") && (d.race_var === "total")) return "national dot";
             else {
                 if(d.race_var === "total") return "statelocal dot";
                 else return "race dot";
