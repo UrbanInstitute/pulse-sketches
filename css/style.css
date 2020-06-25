@@ -45,7 +45,11 @@ p {
 
 .what_charts_show_title {
     font-size: 18px;
-    margin: 2rem 0;
+    margin: 2rem 0 1rem;
+}
+
+div.legend p {
+    margin: 1rem 0 2rem;
 }
 
 #chart_container {
