@@ -13,13 +13,11 @@ var margin = {
     height = h - margin.top - margin.bottom;
 
 var x = d3.scaleBand()
-    .rangeRound([0, width])
-    .padding(0.2)
-    .domain(["wk1_2","wk2_3","wk3_4","wk4_5","wk5_6"]);
+    .domain(["wk1_2","wk2_3","wk3_4","wk4_5","wk5_6"])
+    .padding(0.2);
 
 var y = d3.scaleLinear()
-    .domain([0,1])
-    .rangeRound([height, 0]);
+    .domain([0,1]);
 
 var PCTFORMAT = d3.format(".0%");
 
@@ -125,6 +123,20 @@ $( function() {
 });
 
 function drawGraphic(containerWidth) {
+    if(containerWidth < 450) {
+        w = containerWidth;
+        h = w * 0.66;
+    }
+
+    if(containerWidth < 392) {
+        margin.bottom = 50;
+    }
+
+    width = w - margin.left - margin.right;
+    height = h - margin.top - margin.bottom;
+
+    x.rangeRound([0, width]);
+    y.rangeRound([height, 0]);
 
     // clear divs before redrawing maps
     $(".chart.national svg").empty();

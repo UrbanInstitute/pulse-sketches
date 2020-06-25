@@ -255,6 +255,25 @@ select option[value=""] {
     top: 2px;
 }
 
+@media screen and (max-width: 680px) {
+    .geo.selector_title,
+    ul {
+        display: block;
+        float: none;
+    }
+
+    .geo.option {
+        display: block;
+        float: none;
+        margin-bottom: 3%;
+        margin-right: 0;
+    }
+
+    #states-button {
+        width: 270px;
+    }
+}
+
 /*****************************************************/
 
 
@@ -365,4 +384,9 @@ svg.legend text {
     background-color: #1696d2;
 }
 
+@media screen and (max-width: 781px) {
+    svg.legend:first-of-type {
+        margin-bottom: 10%;
+    }
+}
 /*****************************************************/
