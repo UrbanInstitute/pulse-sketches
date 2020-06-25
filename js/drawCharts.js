@@ -12,7 +12,6 @@ var width,
     height;
 
 var x = d3.scaleBand()
-    .domain(["wk1_2","wk2_3","wk3_4","wk4_5","wk5_6"])
     .padding(0.2);
 
 var y = d3.scaleLinear()
@@ -25,75 +24,23 @@ var initial_indicator = "classes_cancelled";
 // dummy data so that elements are entered on the National graph on load
 // as placeholders for the state/MSA-specific points
 // the chart initializes with US as the selected geo so only
-// 3 points will be drawn on the first small multiple chart if we don't
+// half of the points will be drawn on the first small multiple chart if we don't
 // add placeholders for future state or MSA-level data
-var dummy_state_data = [
-    {
-        geo_type: "state",
-        geography: "dummy data",
-        mean: -1,
-        metric: "uninsured",
-        moe_95: 0,
-        moe_95_lb: 0,
-        moe_95_ub: 0,
-        race_var: "total",
-        se: 0,
-        sigdiff: 0,
-        week_num: "wk1_2",
-    },
-    {
-        geo_type: "state",
-        geography: "dummy data",
-        mean: -1,
-        metric: "uninsured",
-        moe_95: 0,
-        moe_95_lb: 0,
-        moe_95_ub: 0,
-        race_var: "total",
-        se: 0,
-        sigdiff: 0,
-        week_num: "wk2_3",
-    },
-    {
-        geo_type: "state",
-        geography: "dummy data",
-        mean: -1,
-        metric: "uninsured",
-        moe_95: 0,
-        moe_95_lb: 0,
-        moe_95_ub: 0,
-        race_var: "total",
-        se: 0,
-        sigdiff: 0,
-        week_num: "wk3_4",
-    },
-    {
-        geo_type: "state",
-        geography: "dummy data",
-        mean: -1,
-        metric: "uninsured",
-        moe_95: 0,
-        moe_95_lb: 0,
-        moe_95_ub: 0,
-        race_var: "total",
-        se: 0,
-        sigdiff: 0,
-        week_num: "wk4_5",
-    },
-    {
-        geo_type: "state",
-        geography: "dummy data",
-        mean: -1,
-        metric: "uninsured",
-        moe_95: 0,
-        moe_95_lb: 0,
-        moe_95_ub: 0,
-        race_var: "total",
-        se: 0,
-        sigdiff: 0,
-        week_num: "wk5_6",
-    }
-];
+var dummy_obs = {
+    geo_type: "state",
+    geography: "dummy data",
+    mean: -1,
+    metric: "uninsured",
+    moe_95: 0,
+    moe_95_lb: 0,
+    moe_95_ub: 0,
+    race_var: "total",
+    se: 0,
+    sigdiff: 0,
+    // week_num: "wk1_2",
+};
+
+var dummy_state_data = [];
 
 
 // Turn dropdowns into jQuery UI selectmenu
@@ -172,6 +119,15 @@ d3.csv("data/rolling_all_to_current_week.csv", function(d) {
 
     pulseData = data;
 
+    var unique_weeks = d3.map(data, function(d) {return d.week_num;}).keys().sort();
+    x.domain(unique_weeks);
+
+    unique_weeks.forEach(function(w) {
+        dummy_obs.week_num = w;
+        dummy_state_data.push(dummy_obs);
+
+    });
+
     pymChild = new pym.Child({renderCallback: drawGraphic });
 
     // pymChild.onMessage("stateSelected", updateTray);
@@ -192,7 +148,8 @@ function setupChart(race) {
                                                         (d.race_var === race || d.race_var === "total") &&
                                                         d.metric === initial_indicator; });
     }
-console.log(data);
+    // console.log(data);
+
     // insert chart title
     d3.select(".chart_title").text(chartTitles["uninsured"]);
 
@@ -294,7 +251,7 @@ function updateChart(race, metric, geo) {
                                                         (d.race_var === race || d.race_var === "total") &&
                                                         d.metric === metric; });
     }
-console.log(data);
+// console.log(data);
 
     // update chart title
     d3.select(".chart_title").text(chartTitles[metric]);
