@@ -112,12 +112,16 @@ ul {
     margin-right: 0;
 }
 
-/*** styles for radio buttons ***/
 .disabled {
     pointer-events: none;
     opacity: 0.5;
 }
 
+.dropdown_container {
+    margin-top: 18px;
+}
+
+/*** styles for radio buttons ***/
 /* source: https://codepen.io/manabox/pen/raQmpL */
 [type="radio"]:checked,
 [type="radio"]:not(:checked) {
