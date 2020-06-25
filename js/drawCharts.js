@@ -126,6 +126,14 @@ $( function() {
 
 function drawGraphic(containerWidth) {
 
+    // clear divs before redrawing maps
+    $(".chart.national svg").empty();
+    $(".chart.asian svg").empty();
+    $(".chart.black svg").empty();
+    $(".chart.hispanic svg").empty();
+    $(".chart.other svg").empty();
+    $(".chart.white svg").empty();
+
     setupChart("national");
     setupChart("asian");
     setupChart("black");
