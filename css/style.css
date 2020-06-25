@@ -329,6 +329,10 @@ svg.legend:first-of-type {
     margin-right: 10%
 }
 
+svg.legend text {
+    font-size: 16px;
+}
+
 .chart_legend {
     margin: 2rem 0;
     overflow-y: auto;
