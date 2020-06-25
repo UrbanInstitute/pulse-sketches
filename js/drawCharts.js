@@ -23,6 +23,8 @@ var y = d3.scaleLinear()
 
 var PCTFORMAT = d3.format(".0%");
 
+var initial_indicator = "classes_cancelled";
+
 // dummy data so that elements are entered on the National graph on load
 // as placeholders for the state/MSA-specific points
 // the chart initializes with US as the selected geo so only
@@ -167,13 +169,13 @@ function setupChart(race) {
     if(race === "national") {
         data = pulseData.filter(function(d) { return (d.geography === "US") &&
                                                         d.race_var === "total" &&
-                                                        d.metric === "uninsured"; })
+                                                        d.metric === initial_indicator; })
                         .concat(dummy_state_data);
     }
     else {
         data = pulseData.filter(function(d) { return d.geography === "US" &&
                                                         (d.race_var === race || d.race_var === "total") &&
-                                                        d.metric === "uninsured"; });
+                                                        d.metric === initial_indicator; });
     }
 console.log(data);
     // insert chart title
