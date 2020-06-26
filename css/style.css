@@ -79,7 +79,7 @@ div.legend p {
 }
 
 .chart_title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: normal;
     line-height: 32px;
     margin: 2rem 0 1rem;
@@ -112,10 +112,10 @@ ul {
 }
 
 .geo.option {
-    font-size: 20px;
+    font-size: 18px;
     display: inline-block;
     float: left;
-    margin-right: 45px;
+    margin-right: 65px;
 }
 
 .geo.option:last-of-type {
@@ -203,7 +203,7 @@ ul {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;   /* remove default arrow */
-    width: 380px;
+    width: 330px;
     height: 50px;
     /*background: #ffffff;*/
     border: 1px solid #d2d2d2;
@@ -219,7 +219,7 @@ ul {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;   /* remove default arrow */
-    width: 260px;
+    width: 250px;
     height: 50px;
     /*background: #ffffff;*/
     border: 1px solid #d2d2d2;
@@ -234,7 +234,7 @@ ul {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;   /* remove default arrow */
-    width: 270px;
+    width: 250px;
     height: 50px;
     /*background: #ffffff;*/
     border: 1px solid #d2d2d2;
@@ -270,12 +270,12 @@ select option[value=""] {
 }
 
 .ui-selectmenu-text {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: normal;
     color: #353535;
     width: 90%;
     left: 11px;
-    top: 2px;
+    top: 4px;
 }
 
 @media screen and (max-width: 680px) {
@@ -391,6 +391,7 @@ svg.legend text {
     display: inline-block;
     float: left;
     margin-right: 20px;
+    font-size: 16px;
 }
 
 .legendDot {
