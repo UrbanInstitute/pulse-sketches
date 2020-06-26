@@ -151,10 +151,10 @@ function setupChart(race) {
     // console.log(data);
 
     // insert chart title
-    d3.select(".chart_title").text(chartTitles["uninsured"]);
+    d3.select(".chart_title").text(chartTitles[initial_indicator]);
 
     // insert trend description
-    d3.select(".trend_description").html(trendDescriptions["uninsured"]);
+    d3.select(".trend_description").html(trendDescriptions[initial_indicator]);
 
     var svg = d3.select(".chart." + race + " svg")
         .attr("width", width + margin.left + margin.right)
@@ -173,7 +173,7 @@ function setupChart(race) {
     g.append("g")
         .attr("class", "axis x-axis")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x).tickSizeOuter(0).tickFormat(function(d, i) { return "Week " + (i+1) + " and " + (i+2) + " Avg."; }))
+        .call(d3.axisBottom(x).tickSizeOuter(0).tickFormat(function(d, i) { return "Week " + (i+1) + "–" + (i+2) + " avg."; }))
         .selectAll(".tick text")
         .call(wrap, x.bandwidth());
 

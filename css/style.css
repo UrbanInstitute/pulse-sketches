@@ -27,6 +27,11 @@ p {
     font-size: 16px;
 }
 
+ a {
+    color: #1696d2;
+    text-decoration: none;
+ }
+
 .container {
     max-width: 960px;
     width: 100%;
@@ -197,7 +202,7 @@ ul {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;   /* remove default arrow */
-    width: 330px;
+    width: 380px;
     height: 50px;
     /*background: #ffffff;*/
     border: 1px solid #d2d2d2;
