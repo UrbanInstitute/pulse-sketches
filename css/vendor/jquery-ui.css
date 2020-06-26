@@ -725,7 +725,7 @@ button.ui-button::-moz-focus-inner {
 	height: 44px;
    	background: url(../../img/dropdown-bg.png) no-repeat right #ffffff;
    	background-size: 44px 44px;
-	border: 1px solid #ffffff;   	
+	border: 1px solid #ffffff;
    	/*width: 45px;*/
 }
 .ui-selectmenu-icon.ui-icon {
@@ -991,8 +991,8 @@ a.ui-button:focus {
 .ui-widget-header .ui-state-active,
 a.ui-button:active,
 .ui-button.ui-state-active:hover {
-	/*border: 1px solid #003eff;*/	
-	background: #1696d2;
+	/*border: 1px solid #003eff;*/
+	background: #12719E;
 	font-weight: normal;
 	color: #ffffff;
 }
