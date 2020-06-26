@@ -18,6 +18,7 @@ var y = d3.scaleLinear()
     .domain([0,1]);
 
 var PCTFORMAT = d3.format(".0%");
+var num_ticks = 10;
 
 var initial_indicator = "classes_cancelled";
 
@@ -76,6 +77,7 @@ function drawGraphic(containerWidth) {
 
     width = (containerWidth < 450) ? containerWidth - margin.left - margin.right : 450 - margin.left - margin.right;
     height = (width * 0.66) - margin.top - margin.bottom;
+    num_ticks = (containerWidth < 400) ? 5 : 10;
 
     x.rangeRound([0, width]);
     y.rangeRound([height, 0]);
@@ -168,7 +170,7 @@ function setupChart(race) {
     // add axes
     g.append("g")
         .attr("class", "axis y-axis")
-        .call(d3.axisLeft(y).tickFormat(PCTFORMAT).tickSize(-width));
+        .call(d3.axisLeft(y).tickFormat(PCTFORMAT).tickSize(-width).ticks(num_ticks));
 
     g.append("g")
         .attr("class", "axis x-axis")
