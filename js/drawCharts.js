@@ -103,7 +103,7 @@ function drawGraphic(containerWidth) {
 }
 
 // data can be found here: https://ui-census-pulse-survey.s3.amazonaws.com/rolling_all_to_current_week.csv
-d3.csv("data/rolling_all_to_current_week_sd.csv", function(d) {
+d3.csv("data/rolling_all_to_current_week_sd_update.csv", function(d) {
     return {
         geography: d.geography,
         metric: d.metric,
@@ -294,10 +294,12 @@ function updateChart(race, metric, geo) {
             }
         })
         .attr("x", function(d) { return x(d.week_num); })
-        .attr("y", function(d) { return y(+d.moe_95_ub); })
+        .attr("y", function(d) { return !isNaN(+d.moe_95_ub) ? y(+d.moe_95_ub) : y(0); })
         .attr("width", function(d) { return x.bandwidth(); })
         .attr("height", function(d) {
-            return (d.moe_95_lb < 0) ? y(0) - y(d.moe_95_ub) : y(d.moe_95_lb) - y(d.moe_95_ub);
+            if(isNaN(d.moe_95_ub)) return 0;
+            else if(d.moe_95_lb < 0) return y(0) - y(d.moe_95_ub);
+            else return y(d.moe_95_lb) - y(d.moe_95_ub);
         })
         .classed("insig", function(d) {
             if(d.geography === "dummy data") return false;
@@ -331,7 +333,7 @@ function updateChart(race, metric, geo) {
             }
         })
         .attr("cx", function(d) { return x(d.week_num) + x.bandwidth()*.5; })
-        .attr("cy", function(d) { return y(+d.mean); })
+        .attr("cy", function(d) { return !isNaN(d.mean) ? y(+d.mean) : y(-1); })
         .classed("insig", function(d) {
             if(d.geography === "dummy data") return false;
             else if(d.race_var !== "total") return (d.sigdiff === 0);
