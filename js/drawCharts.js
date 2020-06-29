@@ -103,7 +103,7 @@ function drawGraphic(containerWidth) {
 }
 
 // data can be found here: https://ui-census-pulse-survey.s3.amazonaws.com/rolling_all_to_current_week.csv
-d3.csv("data/rolling_all_to_current_week_sd_update.csv", function(d) {
+d3.csv("data/rolling_all_to_current_week.csv", function(d) {
     return {
         geography: d.geography,
         metric: d.metric,
