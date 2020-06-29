@@ -84,7 +84,7 @@ div.legend p {
     font-size: 18px;
     font-weight: normal;
     line-height: 32px;
-    margin: 2rem 0 1rem;
+    margin: 2rem 0 1.5rem;
 }
 
 h4 {
@@ -101,7 +101,7 @@ h4 {
     float: left;
     font-size: 18px;
     font-weight: bold;
-    /*margin-bottom: 20px;*/
+    margin-bottom: 1.5rem;
     margin-right: 30px;
 }
 
