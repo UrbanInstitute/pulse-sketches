@@ -192,10 +192,18 @@ function setupChart(race) {
             }
         })
         .attr("x", function(d) { return x(d.week_num); })
-        .attr("y", function(d) { return y(+d.moe_95_ub); })
+        .attr("y", function(d) {
+            if(isNaN(d.moe_95_ub)) return y(0);
+            else if(d.moe_95_ub > 1) return y(1);
+            else return y(d.moe_95_ub);
+         })
         .attr("width", function(d) { return x.bandwidth(); })
         .attr("height", function(d) {
-            return (d.moe_95_lb < 0) ? y(0) - y(d.moe_95_ub) : y(d.moe_95_lb) - y(d.moe_95_ub);
+            if(isNaN(d.moe_95_ub)) return 0;
+            else if(d.moe_95_lb < 0 && d.moe_95_ub <= 1) return y(0) - y(d.moe_95_ub);
+            else if(d.moe_85_lb >= 0 && d.moe_95_ub > 1) return y(d.moe_95_lb) - y(1);
+            else if(d.moe_95_lb < 0 && d.moe_95_ub > 1) return y(0) - y(1);
+            else return y(d.moe_95_lb) - y(d.moe_95_ub);
         })
         .classed("insig", function(d) {
             if(d.geography === "dummy data") return false;
@@ -294,11 +302,16 @@ function updateChart(race, metric, geo) {
             }
         })
         .attr("x", function(d) { return x(d.week_num); })
-        .attr("y", function(d) { return !isNaN(+d.moe_95_ub) ? y(+d.moe_95_ub) : y(0); })
+        .attr("y", function(d) {
+            if(isNaN(d.moe_95_ub)) return y(0);
+            else if(d.moe_95_ub > 1) return y(1);
+            else return y(d.moe_95_ub); })
         .attr("width", function(d) { return x.bandwidth(); })
         .attr("height", function(d) {
             if(isNaN(d.moe_95_ub)) return 0;
-            else if(d.moe_95_lb < 0) return y(0) - y(d.moe_95_ub);
+            else if(d.moe_95_lb < 0 && d.moe_95_ub <= 1) return y(0) - y(d.moe_95_ub);
+            else if(d.moe_95_lb >= 0 && d.moe_95_ub > 1) return y(d.moe_95_lb) - y(1);
+            else if(d.moe_95_lb < 0 && d.moe_95_ub > 1) return y(0) - y(1);
             else return y(d.moe_95_lb) - y(d.moe_95_ub);
         })
         .classed("insig", function(d) {
