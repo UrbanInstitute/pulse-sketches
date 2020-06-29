@@ -20,7 +20,7 @@ var y = d3.scaleLinear()
 var PCTFORMAT = d3.format(".0%");
 var num_ticks = 10;
 
-var initial_indicator = "classes_cancelled";
+var initial_indicator = "food_insufficient";
 
 // dummy data so that elements are entered on the National graph on load
 // as placeholders for the state/MSA-specific points
