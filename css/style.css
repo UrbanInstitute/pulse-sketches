@@ -435,4 +435,10 @@ svg.legend text {
         margin-bottom: 10%;
     }
 }
+
+@media screen and (max-width: 374px) {
+    svg.legend text {
+        font-size: 14px;
+    }
+}
 /*****************************************************/
