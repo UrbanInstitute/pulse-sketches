@@ -385,7 +385,7 @@ text {
 }
 */
 svg.legend:first-of-type {
-    margin-right: 10%
+    margin-right: 10%;
 }
 
 svg.legend text {
