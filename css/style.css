@@ -391,7 +391,8 @@ svg.legend:first-of-type {
 
 svg.legend text {
     font-size: 16px;
-    font-weight: bold;
+    /*font-weight: bold;*/
+    font-style: italic;
 }
 
 .chart_legend {
@@ -407,7 +408,7 @@ svg.legend text {
 }
 
 .chart_legend.legend text {
-    font-weight: normal;
+    font-style: normal;
 }
 
 .legendDot {
