@@ -283,6 +283,12 @@ select option[value=""] {
     top: 4px;
 }
 
+#states-button .ui-selectmenu-text,
+#msas-button .ui-selectmenu-text {
+    font-size: 16px;
+    top: 7px;
+}
+
 @media screen and (max-width: 680px) {
     .geo.selector_title,
     ul {
