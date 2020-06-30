@@ -41,8 +41,9 @@ p {
 .title {
     font-size: 18px;
     font-weight: bold;
-    margin-top: 0;
+    margin-top: 6rem;
     margin-bottom: 2rem;
+    color: #12719E;
 }
 
 .trend_description {
@@ -53,11 +54,12 @@ p {
     font-size: 18px;
     margin: 2rem 0 1rem;
     font-weight: bold;
-    color: #12719E;
+    font-style: italic;
 }
 
 div.legend p {
     margin: 1rem 0 2rem;
+    font-style: italic;
 }
 
 #chart_container {
@@ -81,13 +83,14 @@ div.legend p {
 }
 
 .chart_title {
-    font-size: 18px;
+    /*font-size: 18px;*/
     line-height: 32px;
-    margin: 2rem 0 1rem;
+    margin: 2rem 0 0.5rem;
 }
 
 h4 {
     margin-top: 0;
+    margin-bottom: 0.5rem;
 }
 
 /****************** SELECTOR STYLES ******************/
@@ -98,9 +101,9 @@ h4 {
 .geo.selector_title {
     display: inline-block;
     float: left;
-    font-size: 18px;
+    /*font-size: 18px;*/
     font-weight: bold;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     margin-right: 30px;
 }
 
@@ -113,7 +116,7 @@ ul {
 }
 
 .geo.option {
-    font-size: 18px;
+    /*font-size: 18px;*/
     display: inline-block;
     float: left;
     margin-right: 65px;
@@ -129,7 +132,7 @@ ul {
 }
 
 .dropdown_container {
-    margin-top: 18px;
+    margin-top: 12px;
 }
 
 /*** styles for radio buttons ***/
@@ -381,10 +384,11 @@ svg.legend:first-of-type {
 
 svg.legend text {
     font-size: 16px;
+    font-weight: bold;
 }
 
 .chart_legend {
-    margin: 1rem 0 2rem;
+    margin: 0.5rem 0 2rem;
     overflow-y: auto;
 }
 
