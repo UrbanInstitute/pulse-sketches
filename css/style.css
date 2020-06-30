@@ -41,9 +41,8 @@ p {
 .title {
     font-size: 18px;
     font-weight: bold;
-    margin-top: 6rem;
+    margin-top: 6.4rem;
     margin-bottom: 2rem;
-    color: #12719E;
 }
 
 .trend_description {
@@ -276,8 +275,7 @@ select option[value=""] {
 
 .ui-selectmenu-text {
     font-size: 18px;
-    font-weight: normal;
-    color: #353535;
+    color: #12719E;
     width: 90%;
     left: 11px;
     top: 4px;
@@ -286,7 +284,9 @@ select option[value=""] {
 #states-button .ui-selectmenu-text,
 #msas-button .ui-selectmenu-text {
     font-size: 16px;
+    font-weight: normal;
     top: 7px;
+    color: #353535;
 }
 
 @media screen and (max-width: 680px) {
