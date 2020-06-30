@@ -7,5 +7,5 @@ var chartTitles = {
     depression_anxiety_signs: "Share of adults that experienced symptoms of depression or anxiety disorders in the past week",
     mortgage_not_conf: "Share of adults in households that have no or slight confidence they can pay their mortgage next month or have deferred payment",
     insured_public: "Share of adults under 65 that have public health insurance",
-    rent_not_conf: "Share of adults in households who have no or slight confidence they can pay their rent next month or have deferred payment"
+    rent_not_conf: "Share of adults in households that have no or slight confidence they can pay their rent next month or have deferred payment"
 }
