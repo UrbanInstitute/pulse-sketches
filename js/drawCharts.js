@@ -75,8 +75,8 @@ function drawGraphic(containerWidth) {
         margin.bottom = 50;
     }
 
-    width = (containerWidth < 450) ? containerWidth - margin.left - margin.right : 450 - margin.left - margin.right;
-    height = (width * 0.66) - margin.top - margin.bottom;
+    width = (containerWidth < 600) ? containerWidth - margin.left - margin.right : 600 - margin.left - margin.right;
+    height = (containerWidth < 600) ? (width * 0.5) - margin.top - margin.bottom : 300 - margin.top - margin.bottom;
     num_ticks = (containerWidth < 400) ? 5 : 10;
 
     x.rangeRound([0, width]);
