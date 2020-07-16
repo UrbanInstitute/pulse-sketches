@@ -12,7 +12,8 @@ var width,
     height;
 
 var x = d3.scaleBand()
-    .padding(0.2);
+    .paddingInner(0.3)
+    .paddingOuter(0.2);
 
 var y = d3.scaleLinear()
     .domain([0,1]);
@@ -75,7 +76,7 @@ function drawGraphic(containerWidth) {
         margin.bottom = 50;
     }
 
-    width = (containerWidth < 600) ? containerWidth - margin.left - margin.right : 600 - margin.left - margin.right;
+    width = (containerWidth < 600) ? containerWidth - margin.left - margin.right : 650 - margin.left - margin.right;
     height = (containerWidth < 600) ? (width * 0.5) - margin.top - margin.bottom : 300 - margin.top - margin.bottom;
     num_ticks = (containerWidth < 400) ? 5 : 10;
 
