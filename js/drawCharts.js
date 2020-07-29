@@ -4,7 +4,7 @@ var pulseData;
 var margin = {
     top: 10,
     right: 10,
-    bottom: 35,
+    bottom: 50,
     left: 33
 };
 
@@ -103,8 +103,10 @@ function drawGraphic(containerWidth) {
     }
 }
 
-// data can be found here: https://ui-census-pulse-survey.s3.amazonaws.com/rolling_all_to_current_week.csv
-d3.csv("data/rolling_all_to_current_week.csv", function(d) {
+// data can be found here: https://ui-census-pulse-survey.s3.amazonaws.com/rolling_all_to_current_week_new_vars.csv
+// NOTE: if the en dashes in the date ranges aren't showing up properly,
+//       open the csv file in Sublime and go to File > Save with Encoding > UTF-8
+d3.csv("data/rolling_all_to_current_week_new_vars.csv", function(d) {
     return {
         geography: d.geography,
         metric: d.metric,
@@ -117,16 +119,17 @@ d3.csv("data/rolling_all_to_current_week.csv", function(d) {
         moe_95_ub: +d.moe_95_ub,
         geo_type: d.geo_type,
         sigdiff: +d.sigdiff,
+        date_int: d.date_int,
     };
 }, function(error, data) {
 
     pulseData = data;
 
-    var unique_weeks = d3.map(data, function(d) {return d.week_num;}).keys().sort();
+    var unique_weeks = d3.map(data, function(d) {return d.date_int;}).keys();
     x.domain(unique_weeks);
 
     unique_weeks.forEach(function(w) {
-        dummy_obs.week_num = w;
+        dummy_obs.date_int = w;
         dummy_state_data.push(dummy_obs);
 
     });
@@ -176,7 +179,7 @@ function setupChart(race) {
     g.append("g")
         .attr("class", "axis x-axis")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x).tickSizeOuter(0).tickFormat(function(d, i) { return "Week " + (i+1) + "–" + (i+2) + " avg."; }))
+        .call(d3.axisBottom(x).tickSizeOuter(0))
         .selectAll(".tick text")
         .call(wrap, x.bandwidth());
 
@@ -192,7 +195,7 @@ function setupChart(race) {
                 else return "race moe";
             }
         })
-        .attr("x", function(d) { return x(d.week_num); })
+        .attr("x", function(d) { return x(d.date_int); })
         .attr("y", function(d) {
             if(isNaN(d.moe_95_ub)) return y(0);
             else if(d.moe_95_ub > 1) return y(1);
@@ -213,7 +216,7 @@ function setupChart(race) {
             else {
                 // need to figure out if the overall average bar is statistically significantly different or not
                 // based on whether the corresponding race-specific datum for that week is
-                var corresponding_race_data = data.filter(function(x) { return (x.week_num === d.week_num) && (x.race_var !== "total"); });
+                var corresponding_race_data = data.filter(function(x) { return (x.date_int === d.date_int) && (x.race_var !== "total"); });
                 return corresponding_race_data[0].sigdiff === 0;
             }
         });
@@ -230,7 +233,7 @@ function setupChart(race) {
                 else return "race dot";
             }
         })
-        .attr("cx", function(d) { return x(d.week_num) + x.bandwidth()*.5; })
+        .attr("cx", function(d) { return x(d.date_int) + x.bandwidth()*.5; })
         .attr("cy", function(d) { return y(+d.mean); })
         .attr("r", 4)
         .classed("insig", function(d) {
@@ -240,7 +243,7 @@ function setupChart(race) {
             else {
                 // need to figure out if the overall average bar is statistically significantly different or not
                 // based on whether the corresponding race-specific datum for that week is
-                var corresponding_race_data = data.filter(function(x) { return (x.week_num === d.week_num) && (x.race_var !== "total"); });
+                var corresponding_race_data = data.filter(function(x) { return (x.date_int === d.date_int) && (x.race_var !== "total"); });
                 return corresponding_race_data[0].sigdiff === 0;
             }
         });
@@ -302,7 +305,7 @@ function updateChart(race, metric, geo) {
                 else return "race moe";
             }
         })
-        .attr("x", function(d) { return x(d.week_num); })
+        .attr("x", function(d) { return x(d.date_int); })
         .attr("y", function(d) {
             if(isNaN(d.moe_95_ub)) return y(0);
             else if(d.moe_95_ub > 1) return y(1);
@@ -323,7 +326,7 @@ function updateChart(race, metric, geo) {
                     // if selected geo isn't US, on national plot, need to figure out if US average is
                     // statistically significant different
                     // or not based on whether the corresponding state or local datum for that week is
-                    var corresponding_race_data = data.filter(function(x) { return (x.week_num === d.week_num) && (x.geography !== "US"); });
+                    var corresponding_race_data = data.filter(function(x) { return (x.date_int === d.date_int) && (x.geography !== "US"); });
                     return corresponding_race_data[0].sigdiff === 0;
                 }
                 else return (d.sigdiff === 0);
@@ -331,7 +334,7 @@ function updateChart(race, metric, geo) {
             else {
                 // need to figure out if the overall average bar is statistically significantly different or not
                 // based on whether the corresponding race-specific datum for that week is
-                var corresponding_race_data = data.filter(function(x) { return (x.week_num === d.week_num) && (x.race_var !== "total"); });
+                var corresponding_race_data = data.filter(function(x) { return (x.date_int === d.date_int) && (x.race_var !== "total"); });
                 return corresponding_race_data[0].sigdiff === 0;
             }
         });
@@ -346,7 +349,7 @@ function updateChart(race, metric, geo) {
                 else return "race dot";
             }
         })
-        .attr("cx", function(d) { return x(d.week_num) + x.bandwidth()*.5; })
+        .attr("cx", function(d) { return x(d.date_int) + x.bandwidth()*.5; })
         .attr("cy", function(d) { return !isNaN(d.mean) ? y(+d.mean) : y(-1); })
         .classed("insig", function(d) {
             if(d.geography === "dummy data") return false;
@@ -356,7 +359,7 @@ function updateChart(race, metric, geo) {
                     // if selected geo isn't US, on national plot, need to figure out if US average is
                     // statistically significant different
                     // or not based on whether the corresponding state or local datum for that week is
-                    var corresponding_race_data = data.filter(function(x) { return (x.week_num === d.week_num) && (x.geography !== "US"); });
+                    var corresponding_race_data = data.filter(function(x) { return (x.date_int === d.date_int) && (x.geography !== "US"); });
                     return corresponding_race_data[0].sigdiff === 0;
                 }
                 else return (d.sigdiff === 0);
@@ -364,7 +367,7 @@ function updateChart(race, metric, geo) {
             else {
                 // need to figure out if the overall average bar is statistically significantly different or not
                 // based on whether the corresponding race-specific datum for that week is
-                var corresponding_race_data = data.filter(function(x) { return (x.week_num === d.week_num) && (x.race_var !== "total"); });
+                var corresponding_race_data = data.filter(function(x) { return (x.date_int === d.date_int) && (x.race_var !== "total"); });
                 return corresponding_race_data[0].sigdiff === 0;
             }
         });
