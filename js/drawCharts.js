@@ -12,7 +12,7 @@ var width,
     height;
 
 var x = d3.scaleBand()
-    .paddingInner(0.25)
+    .paddingInner(0.2)
     .paddingOuter(0.2);
 
 var y = d3.scaleLinear()
