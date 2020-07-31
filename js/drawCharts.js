@@ -76,7 +76,7 @@ function drawGraphic(containerWidth) {
         margin.bottom = 50;
     }
 
-    width = (containerWidth < 700) ? containerWidth - margin.left - margin.right : 700 - margin.left - margin.right;
+    width = (containerWidth < 960) ? containerWidth - margin.left - margin.right : 960 - margin.left - margin.right;
     height = (containerWidth < 600) ? (width * 0.5) - margin.top - margin.bottom : 300 - margin.top - margin.bottom;
     num_ticks = (containerWidth < 400) ? 5 : 10;
 
@@ -179,9 +179,12 @@ function setupChart(race) {
     g.append("g")
         .attr("class", "axis x-axis")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x).tickSizeOuter(0))
-        .selectAll(".tick text")
+        .call(d3.axisBottom(x).tickSizeOuter(0));
+
+    if(width < 550) {
+        d3.selectAll(".x-axis .tick text")
         .call(wrap, x.bandwidth());
+    }
 
     // draw margin of error bands
     g.selectAll(".moe")
@@ -409,41 +412,19 @@ function wrap(text, width) {
   text.each(function() {
     var text = d3.select(this);
 
+    // find where the en dash occurs in the date range so we can split the date range into two parts [m/d-, m/d]
+    var hyphenLocation = text.text().indexOf("–");
 
-    if(["May 7–19", "June 4–16"].indexOf(text.text()) > -1)  {
-        var words = text.text().split(/\s+/).reverse(),
-            word,
-            line = [],
-            lineNumber = -1,
-            lineHeight = 1.1, // ems
-            y = text.attr("y"),
-            dy = parseFloat(text.attr("dy")),
-            tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+    var words = text.text(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 1.1, // ems
+        y = text.attr("y"),
+        dy = parseFloat(text.attr("dy"));
 
-        while (word = words.pop()) {
-            tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", `${++lineNumber * lineHeight + dy}em`).text(word)
-        }
-    }
-    else {
-        var words = text.text().split(/\s+/).reverse(),
-            word,
-            line = [],
-            lineNumber = 0,
-            lineHeight = 1.1, // ems
-            y = text.attr("y"),
-            dy = parseFloat(text.attr("dy")),
-            tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
-
-        while (word = words.pop()) {
-          line.push(word)
-          tspan.text(line.join(" "))
-          if (tspan.node().getComputedTextLength() > width) {
-            line.pop()
-            tspan.text(line.join(" "))
-            line = [word]
-            tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", `${++lineNumber * lineHeight + dy}em`).text(word)
-          }
-        }
-    }
-  })
+        // put each part in its own tspan element to the tick label to wrap nicely onto 2 lines
+        text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em").text(words.substr(0, hyphenLocation + 1));
+        text.append("tspan").attr("x", 0).attr("y", y).attr("dy", lineHeight + dy + "em").text(words.substr(hyphenLocation + 1, words.length))
+  });
 }
