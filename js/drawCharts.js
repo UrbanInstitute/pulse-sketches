@@ -76,7 +76,7 @@ function drawGraphic(containerWidth) {
         margin.bottom = 50;
     }
 
-    width = (containerWidth < 600) ? containerWidth - margin.left - margin.right : 680 - margin.left - margin.right;
+    width = (containerWidth < 700) ? containerWidth - margin.left - margin.right : 700 - margin.left - margin.right;
     height = (containerWidth < 600) ? (width * 0.5) - margin.top - margin.bottom : 300 - margin.top - margin.bottom;
     num_ticks = (containerWidth < 400) ? 5 : 10;
 
@@ -103,10 +103,10 @@ function drawGraphic(containerWidth) {
     }
 }
 
-// data can be found here: https://ui-census-pulse-survey.s3.amazonaws.com/rolling_all_to_current_week_new_vars.csv
+// data can be found here: https://ui-census-pulse-survey.s3.amazonaws.com/rolling_all_to_current_week.csv
 // NOTE: if the en dashes in the date ranges aren't showing up properly,
 //       open the csv file in Sublime and go to File > Save with Encoding > UTF-8
-d3.csv("data/rolling_all_to_current_week_new_vars.csv", function(d) {
+d3.csv("data/rolling_all_to_current_week.csv", function(d) {
     return {
         geography: d.geography,
         metric: d.metric,
